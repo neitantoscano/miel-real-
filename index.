@@ -1,107 +1,1208 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miel Pura & Natural | Elixir de la Colmena</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com"></script>
-    <style>
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
-        .hover-scale { transition: transform 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.05); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miel Pura — Colmena Artesanal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --miel: #D4860A;
+    --miel-claro: #F0A832;
+    --miel-oscuro: #8B5200;
+    --crema: #FDF6E3;
+    --madera: #6B3F1C;
+    --madera-claro: #A0652A;
+    --verde: #3A5A2A;
+    --texto: #2C1A08;
+    --texto-suave: #6B4C2A;
+    --bg-oscuro: #1A0C02;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-oscuro);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #canvas-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  #hero-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+    padding: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--miel-claro);
+    border: 1px solid rgba(240,168,50,0.4);
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    color: #FDF6E3;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.8s;
+  }
+
+  .hero-title em {
+    color: var(--miel-claro);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: rgba(253,246,227,0.65);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.1s;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--miel);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 2.4rem;
+    border-radius: 0.2rem;
+    pointer-events: all;
+    transition: background 0.3s, transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.4s;
+  }
+
+  .hero-cta:hover { background: var(--miel-oscuro); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 2s;
+  }
+
+  .scroll-hint span {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(253,246,227,0.4);
+    margin-bottom: 0.6rem;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(240,168,50,0.8), transparent);
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.8; }
+    50%       { transform: scaleY(0.5); opacity: 0.3; }
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(26,12,2,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--miel-claro);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-logo .bee { font-size: 1.5rem; }
+
+  .nav-links {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(253,246,227,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--miel-claro); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 6rem 2rem; }
+
+  .section-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--miel);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--texto);
+  }
+
+  .section-title em { color: var(--miel); font-style: italic; }
+
+  /* ===== HISTORIA ===== */
+  #historia {
+    background: var(--crema);
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .historia-img {
+    position: relative;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #6B3F1C 0%, #D4860A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .historia-img .hex-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+  }
+
+  .historia-img .center-icon {
+    font-size: 6rem;
+    z-index: 1;
+  }
+
+  .historia-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--texto-suave);
+    margin-bottom: 1.2rem;
+  }
+
+  .historia-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(212,134,10,0.2);
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--miel);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+  }
+
+  /* ===== COLMENA SVG ===== */
+  .hex-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+  }
+
+  /* ===== PRODUCTOS ===== */
+  #productos {
+    background: var(--bg-oscuro);
+    padding: 6rem 2rem;
+  }
+
+  .productos-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .productos-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .productos-header .section-title { color: var(--crema); }
+  .productos-header .section-tag { color: var(--miel-claro); }
+
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .producto-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,134,10,0.2);
+    border-radius: 0.4rem;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+
+  .producto-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212,134,10,0.6);
+  }
+
+  .producto-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .producto-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+  }
+
+  .img-miel::before    { background: linear-gradient(135deg,#D4860A,#F0A832); }
+  .img-panal::before   { background: linear-gradient(135deg,#8B5200,#D4860A); }
+  .img-propol::before  { background: linear-gradient(135deg,#3A5A2A,#6B3F1C); }
+  .img-jalea::before   { background: linear-gradient(135deg,#D4860A,#FDF6E3); }
+
+  .producto-info { padding: 1.5rem; }
+
+  .producto-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--crema);
+    margin-bottom: 0.5rem;
+  }
+
+  .producto-desc {
+    font-size: 0.88rem;
+    color: rgba(253,246,227,0.55);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .producto-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .producto-precio {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--miel-claro);
+  }
+
+  .btn-comprar {
+    background: var(--miel);
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-comprar:hover { background: var(--miel-oscuro); }
+
+  /* ===== GALERÍA ===== */
+  #galeria {
+    background: #F5EDD6;
+    padding: 6rem 2rem;
+  }
+
+  .galeria-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .galeria-header { margin-bottom: 3rem; }
+
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 250px 250px;
+    gap: 1rem;
+  }
+
+  .galeria-item {
+    border-radius: 0.3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .galeria-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.3s;
+  }
+
+  .galeria-item:hover { transform: scale(0.98); }
+
+  .gi-1 { grid-row: 1 / 3; background: linear-gradient(135deg,#6B3F1C,#D4860A); }
+  .gi-2 { background: linear-gradient(135deg,#D4860A,#F0A832); }
+  .gi-3 { background: linear-gradient(135deg,#3A5A2A,#6B8B3F); }
+  .gi-4 { background: linear-gradient(135deg,#8B5200,#D4860A); }
+  .gi-5 { background: linear-gradient(135deg,#F0A832,#FDF6E3); }
+
+  .galeria-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(253,246,227,0.85);
+    z-index: 1;
+  }
+
+  /* ===== PROCESO ===== */
+  #proceso {
+    background: var(--crema);
+    padding: 6rem 2rem;
+  }
+
+  .proceso-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .proceso-header { text-align: center; margin-bottom: 4rem; }
+
+  .proceso-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    position: relative;
+  }
+
+  .proceso-steps::before {
+    content: '';
+    position: absolute;
+    top: 3rem;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--miel), transparent);
+  }
+
+  .paso {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  .paso-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--miel), var(--miel-claro));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.2rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 20px rgba(212,134,10,0.35);
+  }
+
+  .paso-num {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 1.3rem;
+    height: 1.3rem;
+    background: var(--madera);
+    color: var(--crema);
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .paso h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: var(--texto);
+  }
+
+  .paso p {
+    font-size: 0.88rem;
+    color: var(--texto-suave);
+    line-height: 1.6;
+  }
+
+  /* ===== CONTACTO ===== */
+  #contacto {
+    background: var(--madera);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contacto::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(212,134,10,0.15) 0%, transparent 60%),
+                      radial-gradient(circle at 80% 30%, rgba(240,168,50,0.1) 0%, transparent 50%);
+  }
+
+  .contacto-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contacto-inner .section-title { color: var(--crema); }
+  .contacto-inner .section-tag { color: var(--miel-claro); }
+
+  .contacto-inner p {
+    color: rgba(253,246,227,0.7);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .contacto-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(240,168,50,0.25);
+    border-radius: 0.4rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .contacto-card:hover { background: rgba(255,255,255,0.13); }
+
+  .contacto-card .icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+
+  .contacto-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--crema);
+    margin-bottom: 0.3rem;
+  }
+
+  .contacto-card p {
+    font-size: 0.85rem;
+    color: rgba(253,246,227,0.6);
+    margin: 0;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-field {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(240,168,50,0.25);
+    border-radius: 0.3rem;
+    padding: 0.9rem 1.1rem;
+    color: var(--crema);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-field::placeholder { color: rgba(253,246,227,0.35); }
+  .form-field:focus { border-color: rgba(240,168,50,0.7); }
+
+  textarea.form-field { resize: vertical; min-height: 120px; }
+
+  .btn-enviar {
+    background: var(--miel-claro);
+    color: var(--madera);
+    border: none;
+    padding: 0.9rem 2.5rem;
+    border-radius: 0.2rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .btn-enviar:hover { background: var(--miel); transform: translateY(-2px); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg-oscuro);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(212,134,10,0.15);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--miel-claro);
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-sub {
+    font-size: 0.78rem;
+    color: rgba(253,246,227,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== RESPONSIVO ===== */
+  @media (max-width: 768px) {
+    #historia { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row  { grid-template-columns: 1fr; }
+    .galeria-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 200px);
+    }
+    .gi-1 { grid-row: auto; }
+    .nav-links { display: none; }
+    .proceso-steps::before { display: none; }
+  }
+
+  /* ===== ANIMACIÓN SCROLL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
-<body class="bg-amber-50 text-slate-900 font-sans leading-relaxed">
+<body>
 
-    <!-- Navegación -->
-    <nav class="fixed w-full z-50 glass border-b border-amber-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="beaker" class="text-amber-600"></i>
-                    <span class="font-bold text-xl tracking-tight uppercase">MielReal</span>
-                </div>
-                <div class="hidden md:flex space-x-8 font-medium">
-                    <a href="#inicio" class="hover:text-amber-600 transition">Inicio</a>
-                    <a href="productos.html" class="hover:text-amber-600 transition">Productos</a>
-                    <a href="#beneficios" class="hover:text-amber-600 transition">Beneficios</a>
-                    <a href="contacto.html" class="hover:text-amber-600 transition">Contacto</a>
-                </div>
-                <a href="https://wa.me" class="bg-amber-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-amber-700 transition shadow-lg">Pedir Ahora</a>
-            </div>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="bee">🐝</span> Miel Artesanal
+  </a>
+  <ul class="nav-links">
+    <li><a href="#historia">Nosotros</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="canvas-container">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-badge">100% Natural · Artesanal · Sin conservadores</div>
+    <h1 class="hero-title">La <em>dulzura</em><br>de la colmena</h1>
+    <p class="hero-sub">Miel pura cosechada con amor, directamente de nuestras colmenas de madera al campo.</p>
+    <a href="#productos" class="hero-cta">Descubrir productos</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- HISTORIA -->
+<section>
+  <div id="historia">
+    <div class="historia-img reveal">
+      <svg class="hex-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="hex" x="0" y="0" width="30" height="26" patternUnits="userSpaceOnUse">
+            <polygon points="15,1 28,8 28,22 15,29 2,22 2,8" fill="none" stroke="#F0A832" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="200" height="200" fill="url(#hex)"/>
+      </svg>
+      <div class="center-icon">🍯</div>
+    </div>
+    <div class="historia-text reveal">
+      <div class="section-tag">Nuestra historia</div>
+      <h2 class="section-title">Tres generaciones<br><em>de tradición</em></h2>
+      <p>Todo comenzó con un sueño simple: criar abejas con respeto y cosechar la miel que la naturaleza nos regala. Hoy, con más de 20 años de experiencia, seguimos fieles a esa misión.</p>
+      <p>Nuestras colmenas de madera artesanal están ubicadas en campos libres de agroquímicos, rodeadas de flores silvestres que dan a nuestra miel un sabor único e incomparable.</p>
+      <div class="historia-stats">
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Años de experiencia</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="inicio" class="pt-32 pb-20 px-4">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2 space-y-6">
-                <span class="bg-amber-200 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase">100% Orgánica</span>
-                <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-tight">
-                    Del panal a <span class="text-amber-600">tu mesa.</span>
-                </h1>
-                <p class="text-lg text-slate-600 max-w-md">
-                    Descubre la pureza de nuestra miel cruda, recolectada de forma sostenible para conservar todas sus propiedades curativas y sabor ancestral.
-                </p>
-                <div class="flex gap-4 pt-4">
-                    <a href="#productos" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition flex items-center gap-2">
-                        Ver Catálogo <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 relative">
-                <!-- Reemplazar el src con tu link de ImgBB -->
-                <img src="https://unsplash.com" alt="Miel Natural" class="rounded-3xl shadow-2xl hover-scale">
-                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4">
-                    <div class="bg-amber-100 p-3 rounded-full"><i data-lucide="shield-check" class="text-amber-600"></i></div>
-                    <div><p class="font-bold text-sm">Certificado Bio</p><p class="text-xs text-slate-500">Sin aditivos químicos</p></div>
-                </div>
-            </div>
+        <div class="stat-item">
+          <span class="stat-num">50</span>
+          <span class="stat-label">Colmenas activas</span>
         </div>
-    </section>
-
-    <!-- Sección de Productos (Preview) -->
-    <section id="productos" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestras Variedades</h2>
-                <p class="text-slate-500">Selección premium de temporada</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Producto 1 -->
-                <div class="group border border-slate-100 rounded-3xl p-4 hover:shadow-2xl transition duration-500">
-                    <div class="overflow-hidden rounded-2xl mb-6">
-                        <img src="https://unsplash.com" alt="Miel de Azahar" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Miel de Azahar</h3>
-                    <p class="text-slate-600 text-sm mb-4">Aroma floral intenso, ideal para endulzar tus mañanas.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-black text-amber-600">$12.00</span>
-                        <a href="https://stripe.com" class="bg-amber-100 text-amber-700 p-3 rounded-lg hover:bg-amber-600 hover:text-white transition">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Otros productos seguirían esta estructura -->
-            </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Natural y pura</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer Simple -->
-    <footer class="bg-slate-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-slate-400">&copy; 2024 MielReal. Cosechada con amor.</p>
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="productos-inner">
+    <div class="productos-header reveal">
+      <div class="section-tag">Lo que ofrecemos</div>
+      <h2 class="section-title" style="color:var(--crema);">Nuestros <em>productos</em></h2>
+    </div>
+    <div class="productos-grid reveal">
+      <div class="producto-card">
+        <div class="producto-img img-miel">🍯</div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">Miel Pura de Abeja</h3>
+          <p class="producto-desc">Cosechada directamente del panal. Dorada, espesa y llena de nutrientes naturales. Sin mezclas ni aditivos.</p>
+          <div class="producto-footer">
+            <span class="producto-precio">$85</span>
+            <button class="btn-comprar">Pedir</button>
+          </div>
         </div>
-    </footer>
+      </div>
+      <div class="producto-card">
+        <div class="producto-img img-panal">🧇</div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">Panal en Cera</h3>
+          <p class="producto-desc">Panal completo con cera natural de abeja. La forma más pura de disfrutar la miel tal como la naturaleza la hizo.</p>
+          <div class="producto-footer">
+            <span class="producto-precio">$120</span>
+            <button class="btn-comprar">Pedir</button>
+          </div>
+        </div>
+      </div>
+      <div class="producto-card">
+        <div class="producto-img img-propol">🌿</div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">Propóleo Natural</h3>
+          <p class="producto-desc">Extracto puro de propóleo, reconocido por sus propiedades antibacterianas y su poder para fortalecer el sistema inmune.</p>
+          <div class="producto-footer">
+            <span class="producto-precio">$95</span>
+            <button class="btn-comprar">Pedir</button>
+          </div>
+        </div>
+      </div>
+      <div class="producto-card">
+        <div class="producto-img img-jalea">✨</div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">Jalea Real</h3>
+          <p class="producto-desc">El superalimento de las abejas. Jalea real fresca, concentrada, recolectada con cuidado para mantener todas sus propiedades.</p>
+          <div class="producto-footer">
+            <span class="producto-precio">$180</span>
+            <button class="btn-comprar">Pedir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Inicialización de Iconos -->
-    <script>
-        lucide.createIcons();
-    </script>
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="galeria-inner">
+    <div class="galeria-header reveal">
+      <div class="section-tag">Galería</div>
+      <h2 class="section-title">El mundo de<br><em>nuestras abejas</em></h2>
+    </div>
+    <div class="galeria-grid reveal">
+      <div class="galeria-item gi-1">🐝<span class="galeria-label">Nuestras abejas</span></div>
+      <div class="galeria-item gi-2">🍯<span class="galeria-label">Cosecha</span></div>
+      <div class="galeria-item gi-3">🌸<span class="galeria-label">Campos florales</span></div>
+      <div class="galeria-item gi-4">🧱<span class="galeria-label">Colmenas</span></div>
+      <div class="galeria-item gi-5">✨<span class="galeria-label">Productos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="proceso-inner">
+    <div class="proceso-header reveal">
+      <div class="section-tag">Cómo lo hacemos</div>
+      <h2 class="section-title">De la colmena<br><em>a tu mesa</em></h2>
+    </div>
+    <div class="proceso-steps reveal">
+      <div class="paso">
+        <div class="paso-icon">🌸<span class="paso-num">1</span></div>
+        <h3>Polinización</h3>
+        <p>Las abejas recolectan néctar de flores silvestres en campos naturales libres de químicos.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-icon">🏡<span class="paso-num">2</span></div>
+        <h3>La colmena</h3>
+        <p>Producen la miel en colmenas de madera artesanal, donde maduran de forma natural.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-icon">🔍<span class="paso-num">3</span></div>
+        <h3>Inspección</h3>
+        <p>Revisamos cada colmena con cuidado para asegurar la salud de las abejas y la calidad de la miel.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-icon">🪣<span class="paso-num">4</span></div>
+        <h3>Cosecha</h3>
+        <p>Extraemos la miel manualmente, sin calor excesivo, para preservar enzimas y nutrientes.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-icon">🍯<span class="paso-num">5</span></div>
+        <h3>Envasado</h3>
+        <p>Se filtra suavemente y se envasa en recipientes de vidrio para conservar su frescura.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div class="section-tag reveal">Contáctanos</div>
+    <h2 class="section-title reveal">Hablemos sobre<br><em>nuestra miel</em></h2>
+    <p class="reveal">¿Quieres hacer un pedido, necesitas más información o te interesa comprar al mayoreo? Estamos para atenderte con gusto.</p>
+
+    <div class="contacto-grid reveal">
+      <div class="contacto-card">
+        <div class="icon">📱</div>
+        <h4>WhatsApp</h4>
+        <p>+52 741 000 0000</p>
+      </div>
+      <div class="contacto-card">
+        <div class="icon">📍</div>
+        <h4>Ubicación</h4>
+        <p>Guerrero, México</p>
+      </div>
+      <div class="contacto-card">
+        <div class="icon">📧</div>
+        <h4>Correo</h4>
+        <p>miel@ejemplo.com</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="form-row">
+        <input type="text" class="form-field" placeholder="Tu nombre">
+        <input type="tel" class="form-field" placeholder="Tu teléfono">
+      </div>
+      <textarea class="form-field" placeholder="¿En qué podemos ayudarte?"></textarea>
+      <br>
+      <button class="btn-enviar">Enviar mensaje</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🐝 Miel Artesanal</div>
+  <div class="footer-sub">© 2025 · Hecho con amor y cera de abeja · Guerrero, México</div>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ============================================================
+//  ANIMACIÓN 3D DE COLMENA CON THREE.JS
+// ============================================================
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x1A0C02, 0.035);
+
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+  camera.position.set(0, 2, 14);
+
+  function resize() {
+    const w = canvas.parentElement.clientWidth;
+    const h = canvas.parentElement.clientHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // LUCES
+  const ambLight = new THREE.AmbientLight(0x8B5200, 0.6);
+  scene.add(ambLight);
+
+  const sunLight = new THREE.DirectionalLight(0xF0A832, 1.8);
+  sunLight.position.set(5, 10, 8);
+  sunLight.castShadow = true;
+  scene.add(sunLight);
+
+  const rimLight = new THREE.PointLight(0xD4860A, 1.2, 25);
+  rimLight.position.set(-5, 3, -3);
+  scene.add(rimLight);
+
+  const fillLight = new THREE.PointLight(0xFFF5D6, 0.5, 20);
+  fillLight.position.set(3, -2, 5);
+  scene.add(fillLight);
+
+  // PARTÍCULAS DE ABEJAS / POLVO
+  const particleGeo = new THREE.BufferGeometry();
+  const pCount = 180;
+  const pPos = new Float32Array(pCount * 3);
+  const pPhase = new Float32Array(pCount);
+  for (let i = 0; i < pCount; i++) {
+    pPos[i*3]   = (Math.random()-0.5) * 24;
+    pPos[i*3+1] = (Math.random()-0.5) * 14;
+    pPos[i*3+2] = (Math.random()-0.5) * 14 - 2;
+    pPhase[i]   = Math.random() * Math.PI * 2;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const particleMat = new THREE.PointsMaterial({
+    color: 0xF0A832, size: 0.06, transparent: true, opacity: 0.6
+  });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // MATERIALES DE MADERA
+  const woodDark  = new THREE.MeshStandardMaterial({ color: 0x5C3010, roughness: 0.85, metalness: 0.05 });
+  const woodMid   = new THREE.MeshStandardMaterial({ color: 0x7A4520, roughness: 0.75, metalness: 0.05 });
+  const woodLight = new THREE.MeshStandardMaterial({ color: 0xA0652A, roughness: 0.65, metalness: 0.08 });
+  const honeyMat  = new THREE.MeshStandardMaterial({ color: 0xD4860A, roughness: 0.3, metalness: 0.2, emissive: 0x6B3000, emissiveIntensity: 0.15 });
+  const frameMat  = new THREE.MeshStandardMaterial({ color: 0x8B5200, roughness: 0.7, metalness: 0.1 });
+
+  // FUNCIÓN PARA CREAR UNA CAJA CON BISELES
+  function makeBox(w, h, d, mat, bevel=true) {
+    let geo;
+    if (bevel) {
+      geo = new THREE.BoxGeometry(w, h, d, 2, 2, 2);
+    } else {
+      geo = new THREE.BoxGeometry(w, h, d);
+    }
+    return new THREE.Mesh(geo, mat);
+  }
+
+  // COLMENA = GRUPO DE CAPAS (alzas)
+  const hive = new THREE.Group();
+  scene.add(hive);
+
+  // Datos de cada alza: [ancho, alto, profundo, material, nombre]
+  const layerData = [
+    { w:3.2, h:0.6, d:2.2, mat:woodDark,  name:'base'   },   // 0 - fondo/tablero
+    { w:3.0, h:0.7, d:2.0, mat:woodMid,   name:'cámara1' },  // 1 - cámara de cría 1
+    { w:3.0, h:0.7, d:2.0, mat:woodLight, name:'cámara2' },  // 2 - cámara de cría 2
+    { w:3.0, h:0.5, d:2.0, mat:woodMid,   name:'excl'    },  // 3 - excluidor
+    { w:3.0, h:0.8, d:2.0, mat:woodLight, name:'alza1'   },  // 4 - alza 1
+    { w:3.0, h:0.8, d:2.0, mat:woodMid,   name:'alza2'   },  // 5 - alza 2
+    { w:3.2, h:0.4, d:2.2, mat:woodDark,  name:'tapa'    },  // 6 - tapa
+  ];
+
+  const layers = [];
+  let yOffset = 0;
+
+  layerData.forEach((ld, i) => {
+    const group = new THREE.Group();
+
+    // Cuerpo principal
+    const body = makeBox(ld.w, ld.h, ld.d, ld.mat);
+    group.add(body);
+
+    // Marcos de cuadros (para capas de cría/alza)
+    if (i >= 1 && i <= 5 && i !== 3) {
+      for (let f = 0; f < 4; f++) {
+        const frame = makeBox(0.04, ld.h * 0.85, ld.d * 0.88, frameMat, false);
+        frame.position.x = -0.55 + f * 0.37;
+        frame.position.y = 0;
+        frame.position.z = 0;
+        group.add(frame);
+      }
+      // Miel en las celdillas (dentro del marco)
+      for (let f = 0; f < 3; f++) {
+        const honey = makeBox(0.28, ld.h * 0.75, ld.d * 0.82, honeyMat, false);
+        honey.position.x = -0.37 + f * 0.37;
+        group.add(honey);
+      }
+    }
+
+    // Peldaño de entrada (solo en cámara 1)
+    if (i === 1) {
+      const entrance = makeBox(0.8, 0.08, 0.06, woodDark, false);
+      entrance.position.set(0, -(ld.h/2 + 0.04), ld.d/2 + 0.03);
+      group.add(entrance);
+    }
+
+    // Tapa con tejado
+    if (i === 6) {
+      const roofL = makeBox(3.4, 0.15, 1.1, woodDark, false);
+      roofL.rotation.z = Math.PI * 0.12;
+      roofL.position.set(-0.7, 0.28, 0.55);
+      group.add(roofL);
+      const roofR = makeBox(3.4, 0.15, 1.1, woodDark, false);
+      roofR.rotation.z = -Math.PI * 0.12;
+      roofR.position.set(0.7, 0.28, 0.55);
+      group.add(roofR);
+      const roofLb = makeBox(3.4, 0.15, 1.1, woodDark, false);
+      roofLb.rotation.z = Math.PI * 0.12;
+      roofLb.position.set(-0.7, 0.28, -0.55);
+      group.add(roofLb);
+      const roofRb = makeBox(3.4, 0.15, 1.1, woodDark, false);
+      roofRb.rotation.z = -Math.PI * 0.12;
+      roofRb.position.set(0.7, 0.28, -0.55);
+      group.add(roofRb);
+    }
+
+    yOffset += ld.h;
+    group.position.y = yOffset - ld.h / 2 - 2.5;
+    group.userData.baseY = group.position.y;
+    group.userData.index = i;
+    group.userData.name  = ld.name;
+
+    layers.push(group);
+    hive.add(group);
+  });
+
+  // PATAS DE LA COLMENA
+  [-1.2, 1.2].forEach(x => {
+    [-0.7, 0.7].forEach(z => {
+      const leg = makeBox(0.12, 1.2, 0.12, woodDark, false);
+      leg.position.set(x, -3.1, z);
+      hive.add(leg);
+    });
+  });
+
+  // ANIMACIÓN DE EXPLOSIÓN EN CAPAS
+  let explodeProgress = 0;
+  let exploding = false;
+  let explodeDone = false;
+  const explodeOffsets = [0, 1.8, 3.2, 4.4, 5.5, 6.5, 7.8]; // cuánto sube cada capa
+
+  // Empieza la explosión después de 1.5s
+  setTimeout(() => { exploding = true; }, 1500);
+
+  let t = 0;
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const dt = clock.getDelta();
+    t += dt;
+
+    // Rotación suave de la colmena completa
+    hive.rotation.y = Math.sin(t * 0.3) * 0.15;
+
+    // Animación de explosión
+    if (exploding && explodeProgress < 1) {
+      explodeProgress += dt * 0.35;
+      if (explodeProgress >= 1) {
+        explodeProgress = 1;
+        explodeDone = true;
+      }
+      // Ease out
+      const eased = 1 - Math.pow(1 - explodeProgress, 3);
+      layers.forEach((layer, i) => {
+        const target = layer.userData.baseY + explodeOffsets[i] * eased;
+        layer.position.y = target;
+
+        // Un poquito de inclinación al explotar
+        if (!explodeDone) {
+          layer.rotation.x = Math.sin(t + i) * 0.03 * (1 - eased);
+          layer.rotation.z = Math.cos(t * 0.7 + i) * 0.02 * (1 - eased);
+        }
+      });
+    }
+
+    // Flotación suave después de explotar
+    if (explodeDone) {
+      layers.forEach((layer, i) => {
+        const phase = i * 0.6;
+        layer.position.y = layer.userData.baseY + explodeOffsets[i] + Math.sin(t * 0.8 + phase) * 0.05;
+      });
+    }
+
+    // Animación de partículas
+    const positions = particleGeo.attributes.position.array;
+    for (let i = 0; i < pCount; i++) {
+      positions[i*3+1] += Math.sin(t + pPhase[i]) * 0.003;
+      positions[i*3]   += Math.cos(t * 0.5 + pPhase[i]) * 0.002;
+    }
+    particleGeo.attributes.position.needsUpdate = true;
+
+    // Luz dinámica
+    rimLight.intensity = 1.0 + Math.sin(t * 1.2) * 0.2;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // NAVEGACIÓN - scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // REVEAL EN SCROLL
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(el => revealObs.observe(el));
+
+  // BOTONES PEDIR - WhatsApp
+  document.querySelectorAll('.btn-comprar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const producto = btn.closest('.producto-card').querySelector('.producto-nombre').textContent;
+      const msg = encodeURIComponent(`Hola! Me interesa: ${producto}`);
+      window.open(`https://wa.me/527410000000?text=${msg}`, '_blank');
+    });
+  });
+
+  // ENVIAR MENSAJE
+  document.querySelector('.btn-enviar').addEventListener('click', () => {
+    const nombre = document.querySelectorAll('.form-field')[0].value;
+    const tel    = document.querySelectorAll('.form-field')[1].value;
+    const msg    = document.querySelectorAll('.form-field')[2].value;
+    if (!nombre || !msg) return alert('Por favor completa tu nombre y mensaje.');
+    const wa = encodeURIComponent(`Hola! Soy ${nombre} (${tel}).\n${msg}`);
+    window.open(`https://wa.me/527410000000?text=${wa}`, '_blank');
+  });
+
+})();
+</script>
 </body>
 </html>
