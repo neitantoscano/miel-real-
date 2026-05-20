@@ -3,709 +3,376 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miel Pura — Colmena Artesanal</title>
+<title>Miel Real — Colmena Artesanal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --miel: #D4860A;
-    --miel-claro: #F0A832;
-    --miel-oscuro: #8B5200;
-    --crema: #FDF6E3;
-    --madera: #6B3F1C;
-    --madera-claro: #A0652A;
-    --verde: #3A5A2A;
-    --texto: #2C1A08;
-    --texto-suave: #6B4C2A;
-    --bg-oscuro: #1A0C02;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Lato', sans-serif;
-    background: var(--crema);
-    color: var(--texto);
-    overflow-x: hidden;
-  }
-
-  /* ===== HERO ===== */
-  #hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: var(--bg-oscuro);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #canvas-container {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  #hero-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  .hero-overlay {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    pointer-events: none;
-    padding: 2rem;
-  }
-
-  .hero-badge {
-    display: inline-block;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--miel-claro);
-    border: 1px solid rgba(240,168,50,0.4);
-    padding: 0.4rem 1.2rem;
-    border-radius: 2rem;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 7rem);
-    color: #FDF6E3;
-    line-height: 1.05;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 0.8s;
-  }
-
-  .hero-title em {
-    color: var(--miel-claro);
-    font-style: italic;
-  }
-
-  .hero-sub {
-    font-size: clamp(0.95rem, 2vw, 1.15rem);
-    color: rgba(253,246,227,0.65);
-    font-weight: 300;
-    letter-spacing: 0.04em;
-    max-width: 420px;
-    margin: 0 auto 2.5rem;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 1.1s;
-  }
-
-  .hero-cta {
-    display: inline-block;
-    background: var(--miel);
-    color: #fff;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.9rem 2.4rem;
-    border-radius: 0.2rem;
-    pointer-events: all;
-    transition: background 0.3s, transform 0.2s;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 1.4s;
-  }
-
-  .hero-cta:hover { background: var(--miel-oscuro); transform: translateY(-2px); }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    text-align: center;
-    opacity: 0;
-    animation: fadeIn 1s ease forwards 2s;
-  }
-
-  .scroll-hint span {
-    display: block;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(253,246,227,0.4);
-    margin-bottom: 0.6rem;
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, rgba(240,168,50,0.8), transparent);
-    margin: 0 auto;
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; } to { opacity: 1; }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { transform: scaleY(1); opacity: 0.8; }
-    50%       { transform: scaleY(0.5); opacity: 0.3; }
-  }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 1.2rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.4s, backdrop-filter 0.4s;
-  }
-
-  nav.scrolled {
-    background: rgba(26,12,2,0.92);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--miel-claro);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .nav-logo .bee { font-size: 1.5rem; }
-
-  .nav-links {
-    display: flex;
-    gap: 2.2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(253,246,227,0.7);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--miel-claro); }
-
-  /* ===== SECTIONS ===== */
-  section { padding: 6rem 2rem; }
-
-  .section-tag {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--miel);
-    margin-bottom: 0.8rem;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    color: var(--texto);
-  }
-
-  .section-title em { color: var(--miel); font-style: italic; }
-
-  /* ===== HISTORIA ===== */
-  #historia {
-    background: var(--crema);
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .historia-img {
-    position: relative;
-    border-radius: 0.4rem;
-    overflow: hidden;
-    aspect-ratio: 4/5;
-    background: linear-gradient(135deg, #6B3F1C 0%, #D4860A 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .historia-img .hex-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.12;
-  }
-
-  .historia-img .center-icon {
-    font-size: 6rem;
-    z-index: 1;
-  }
-
-  .historia-text p {
-    font-size: 1.05rem;
-    line-height: 1.85;
-    color: var(--texto-suave);
-    margin-bottom: 1.2rem;
-  }
-
-  .historia-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(212,134,10,0.2);
-  }
-
-  .stat-item { text-align: center; }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--miel);
-    display: block;
-  }
-
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--texto-suave);
-  }
-
-  /* ===== COLMENA SVG ===== */
-  .hex-svg {
-    width: 100%;
-    height: 100%;
-    opacity: 0.15;
-  }
-
-  /* ===== PRODUCTOS ===== */
-  #productos {
-    background: var(--bg-oscuro);
-    padding: 6rem 2rem;
-  }
-
-  .productos-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .productos-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .productos-header .section-title { color: var(--crema); }
-  .productos-header .section-tag { color: var(--miel-claro); }
-
-  .productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-
-  .producto-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(212,134,10,0.2);
-    border-radius: 0.4rem;
-    overflow: hidden;
-    transition: transform 0.3s, border-color 0.3s;
-    cursor: pointer;
-  }
-
-  .producto-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(212,134,10,0.6);
-  }
-
-  .producto-img {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .producto-img::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.3;
-  }
-
-  .img-miel::before    { background: linear-gradient(135deg,#D4860A,#F0A832); }
-  .img-panal::before   { background: linear-gradient(135deg,#8B5200,#D4860A); }
-  .img-propol::before  { background: linear-gradient(135deg,#3A5A2A,#6B3F1C); }
-  .img-jalea::before   { background: linear-gradient(135deg,#D4860A,#FDF6E3); }
-
-  .producto-info { padding: 1.5rem; }
-
-  .producto-nombre {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--crema);
-    margin-bottom: 0.5rem;
-  }
-
-  .producto-desc {
-    font-size: 0.88rem;
-    color: rgba(253,246,227,0.55);
-    line-height: 1.6;
-    margin-bottom: 1.2rem;
-  }
-
-  .producto-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .producto-precio {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--miel-claro);
-  }
-
-  .btn-comprar {
-    background: var(--miel);
-    color: #fff;
-    border: none;
-    padding: 0.55rem 1.2rem;
-    border-radius: 0.2rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-comprar:hover { background: var(--miel-oscuro); }
-
-  /* ===== GALERÍA ===== */
-  #galeria {
-    background: #F5EDD6;
-    padding: 6rem 2rem;
-  }
-
-  .galeria-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .galeria-header { margin-bottom: 3rem; }
-
-  .galeria-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 250px 250px;
-    gap: 1rem;
-  }
-
-  .galeria-item {
-    border-radius: 0.3rem;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3.5rem;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s;
-  }
-
-  .galeria-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    transition: opacity 0.3s;
-  }
-
-  .galeria-item:hover { transform: scale(0.98); }
-
-  .gi-1 { grid-row: 1 / 3; background: linear-gradient(135deg,#6B3F1C,#D4860A); }
-  .gi-2 { background: linear-gradient(135deg,#D4860A,#F0A832); }
-  .gi-3 { background: linear-gradient(135deg,#3A5A2A,#6B8B3F); }
-  .gi-4 { background: linear-gradient(135deg,#8B5200,#D4860A); }
-  .gi-5 { background: linear-gradient(135deg,#F0A832,#FDF6E3); }
-
-  .galeria-label {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(253,246,227,0.85);
-    z-index: 1;
-  }
-
-  /* ===== PROCESO ===== */
-  #proceso {
-    background: var(--crema);
-    padding: 6rem 2rem;
-  }
-
-  .proceso-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .proceso-header { text-align: center; margin-bottom: 4rem; }
-
-  .proceso-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    position: relative;
-  }
-
-  .proceso-steps::before {
-    content: '';
-    position: absolute;
-    top: 3rem;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--miel), transparent);
-  }
-
-  .paso {
-    text-align: center;
-    padding: 1.5rem 1rem;
-  }
-
-  .paso-icon {
-    width: 4rem;
-    height: 4rem;
-    background: linear-gradient(135deg, var(--miel), var(--miel-claro));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin: 0 auto 1.2rem;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 4px 20px rgba(212,134,10,0.35);
-  }
-
-  .paso-num {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 1.3rem;
-    height: 1.3rem;
-    background: var(--madera);
-    color: var(--crema);
-    border-radius: 50%;
-    font-size: 0.65rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .paso h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-    color: var(--texto);
-  }
-
-  .paso p {
-    font-size: 0.88rem;
-    color: var(--texto-suave);
-    line-height: 1.6;
-  }
-
-  /* ===== CONTACTO ===== */
-  #contacto {
-    background: var(--madera);
-    padding: 6rem 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  #contacto::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle at 20% 50%, rgba(212,134,10,0.15) 0%, transparent 60%),
-                      radial-gradient(circle at 80% 30%, rgba(240,168,50,0.1) 0%, transparent 50%);
-  }
-
-  .contacto-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .contacto-inner .section-title { color: var(--crema); }
-  .contacto-inner .section-tag { color: var(--miel-claro); }
-
-  .contacto-inner p {
-    color: rgba(253,246,227,0.7);
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  .contacto-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .contacto-card {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(240,168,50,0.25);
-    border-radius: 0.4rem;
-    padding: 1.5rem;
-    text-align: center;
-    transition: background 0.3s;
-  }
-
-  .contacto-card:hover { background: rgba(255,255,255,0.13); }
-
-  .contacto-card .icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
-
-  .contacto-card h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    color: var(--crema);
-    margin-bottom: 0.3rem;
-  }
-
-  .contacto-card p {
-    font-size: 0.85rem;
-    color: rgba(253,246,227,0.6);
-    margin: 0;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .form-field {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(240,168,50,0.25);
-    border-radius: 0.3rem;
-    padding: 0.9rem 1.1rem;
-    color: var(--crema);
-    font-family: 'Lato', sans-serif;
-    font-size: 0.9rem;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-field::placeholder { color: rgba(253,246,227,0.35); }
-  .form-field:focus { border-color: rgba(240,168,50,0.7); }
-
-  textarea.form-field { resize: vertical; min-height: 120px; }
-
-  .btn-enviar {
-    background: var(--miel-claro);
-    color: var(--madera);
-    border: none;
-    padding: 0.9rem 2.5rem;
-    border-radius: 0.2rem;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    margin-top: 0.5rem;
-  }
-
-  .btn-enviar:hover { background: var(--miel); transform: translateY(-2px); }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--bg-oscuro);
-    padding: 3rem 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(212,134,10,0.15);
-  }
-
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--miel-claro);
-    margin-bottom: 0.8rem;
-  }
-
-  .footer-sub {
-    font-size: 0.78rem;
-    color: rgba(253,246,227,0.3);
-    letter-spacing: 0.08em;
-  }
-
-  /* ===== RESPONSIVO ===== */
-  @media (max-width: 768px) {
-    #historia { grid-template-columns: 1fr; gap: 2.5rem; }
-    .form-row  { grid-template-columns: 1fr; }
-    .galeria-grid {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, 200px);
-    }
-    .gi-1 { grid-row: auto; }
-    .nav-links { display: none; }
-    .proceso-steps::before { display: none; }
-  }
-
-  /* ===== ANIMACIÓN SCROLL ===== */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --miel:#C8790A;
+  --miel-l:#F0A832;
+  --miel-d:#7A4A00;
+  --crema:#FDF6E3;
+  --crema2:#F5EDD5;
+  --madera:#8B5200;
+  --madera-d:#4A2800;
+  --verde:#3A5A2A;
+  --negro:#1A0C02;
+  --txt:#2C1A08;
+  --txt2:#6B4C2A;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--crema);
+  color:var(--txt);
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2.5rem;
+  transition:background .4s,backdrop-filter .4s;
+}
+#nav.dark{background:rgba(26,12,2,.92);backdrop-filter:blur(14px);}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-size:1.25rem;
+  color:var(--miel-l);text-decoration:none;display:flex;align-items:center;gap:.5rem;
+}
+.nav-logo svg{width:28px;height:28px;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(253,246,227,.65);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--miel-l);}
+
+/* ── HERO ── */
+#hero{
+  position:relative;width:100%;height:100vh;
+  background:var(--negro);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.hero-content{
+  position:relative;z-index:10;text-align:center;padding:2rem;pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--miel-l);border:1px solid rgba(240,168,50,.35);
+  padding:.35rem 1.1rem;border-radius:2rem;margin-bottom:1.6rem;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,9vw,7.5rem);
+  color:#FDF6E3;line-height:1.0;margin-bottom:1rem;
+  opacity:0;animation:fadeUp 1s ease forwards .7s;
+}
+.hero-title em{color:var(--miel-l);font-style:italic;}
+.hero-sub{
+  font-size:clamp(.9rem,2vw,1.1rem);color:rgba(253,246,227,.6);
+  font-weight:300;letter-spacing:.04em;max-width:400px;margin:0 auto 2.5rem;
+  opacity:0;animation:fadeUp 1s ease forwards 1s;
+}
+.hero-cta{
+  display:inline-block;background:var(--miel);color:#fff;
+  font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;padding:.85rem 2.2rem;border-radius:.2rem;pointer-events:all;
+  transition:background .3s,transform .2s;
+  opacity:0;animation:fadeUp 1s ease forwards 1.3s;
+}
+.hero-cta:hover{background:var(--miel-d);transform:translateY(-2px);}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  text-align:center;z-index:10;
+  opacity:0;animation:fadeIn 1s ease forwards 2.2s;
+}
+.scroll-hint span{
+  display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(253,246,227,.35);margin-bottom:.5rem;
+}
+.scroll-line{
+  width:1px;height:38px;
+  background:linear-gradient(to bottom,rgba(240,168,50,.7),transparent);
+  margin:0 auto;animation:pulse 2s ease-in-out infinite;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.8}50%{opacity:.25}}
+
+/* ── STICKY SCROLL SECTION ── */
+#sticky-wrap{
+  position:relative;
+  height:550vh; /* scrolleable area */
+}
+#sticky-scene{
+  position:sticky;top:0;
+  width:100%;height:100vh;
+  background:var(--crema);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+#hive-canvas{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+}
+
+/* Labels de componentes */
+.hive-labels{
+  position:absolute;inset:0;pointer-events:none;z-index:5;
+}
+.hlabel{
+  position:absolute;
+  display:flex;align-items:center;gap:.7rem;
+  opacity:0;transition:opacity .5s ease,transform .5s ease;
+  transform:translateX(10px);
+}
+.hlabel.visible{opacity:1;transform:translateX(0);}
+.hlabel-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--miel);flex-shrink:0;
+}
+.hlabel-line{
+  width:40px;height:1px;background:var(--miel);flex-shrink:0;
+}
+.hlabel-text h4{
+  font-family:'Playfair Display',serif;font-size:.95rem;
+  color:var(--txt);margin-bottom:.15rem;
+}
+.hlabel-text p{
+  font-size:.75rem;color:var(--txt2);line-height:1.4;max-width:160px;
+}
+/* posiciones izquierda */
+.hlabel.left{flex-direction:row-reverse;right:auto;}
+.hlabel.left .hlabel-line{order:0;}
+.hlabel.left .hlabel-text{text-align:right;}
+/* posiciones derecha */
+.hlabel.right{left:auto;}
+
+/* Texto lateral izquierdo del sticky */
+.sticky-info{
+  position:absolute;left:4%;top:50%;transform:translateY(-50%);
+  max-width:240px;z-index:6;
+}
+.sticky-info .section-tag{
+  font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--miel);margin-bottom:.6rem;
+}
+.sticky-info h2{
+  font-family:'Playfair Display',serif;font-size:2rem;
+  line-height:1.15;color:var(--txt);margin-bottom:1rem;
+}
+.sticky-info h2 em{color:var(--miel);font-style:italic;}
+.sticky-info p{font-size:.85rem;color:var(--txt2);line-height:1.7;}
+.progress-bar{
+  margin-top:1.5rem;width:100%;height:2px;
+  background:rgba(212,134,10,.15);border-radius:1px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(to right,var(--miel),var(--miel-l));
+  width:0%;transition:width .1s linear;border-radius:1px;
+}
+
+/* ── SEPARADOR CURVO ── */
+.wave-sep{
+  width:100%;height:80px;background:var(--crema);
+  position:relative;margin-top:-2px;
+}
+.wave-sep svg{width:100%;height:100%;}
+
+/* ── SECCIONES NORMALES ── */
+.section-tag{
+  font-size:.65rem;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--miel);margin-bottom:.6rem;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4.5vw,3.2rem);
+  line-height:1.1;margin-bottom:1.5rem;
+}
+.section-title em{color:var(--miel);font-style:italic;}
+
+/* ── TRUST BAR ── */
+#trust{
+  background:var(--miel);padding:1.4rem 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:3rem;flex-wrap:wrap;
+}
+.trust-item{
+  display:flex;align-items:center;gap:.6rem;
+  color:#fff;font-size:.8rem;font-weight:500;
+  letter-spacing:.06em;
+}
+.trust-item svg{width:18px;height:18px;opacity:.9;}
+
+/* ── HISTORIA ── */
+#historia{
+  padding:6rem 2rem;
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+.historia-visual{
+  position:relative;border-radius:.4rem;overflow:hidden;
+  aspect-ratio:4/5;
+  background:linear-gradient(135deg,#6B3F1C,#D4860A);
+  display:flex;align-items:center;justify-content:center;
+}
+.historia-visual .hex-bg{
+  position:absolute;inset:0;opacity:.1;
+}
+.historia-visual .center-emoji{font-size:5.5rem;z-index:1;}
+.historia-text p{font-size:1rem;line-height:1.85;color:var(--txt2);margin-bottom:1.2rem;}
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  margin-top:2rem;padding-top:2rem;
+  border-top:1px solid rgba(212,134,10,.2);
+}
+.stat{text-align:center;}
+.stat-n{
+  font-family:'Playfair Display',serif;font-size:2rem;
+  color:var(--miel);display:block;
+}
+.stat-l{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt2);}
+
+/* ── PRODUCTOS ── */
+#productos{background:var(--negro);padding:6rem 2rem;}
+.productos-inner{max-width:1100px;margin:0 auto;}
+.prod-header{text-align:center;margin-bottom:3.5rem;}
+.prod-header .section-title{color:var(--crema);}
+.prod-header .section-tag{color:var(--miel-l);}
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
+}
+.prod-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(212,134,10,.18);
+  border-radius:.4rem;overflow:hidden;
+  transition:transform .3s,border-color .3s;cursor:pointer;
+}
+.prod-card:hover{transform:translateY(-5px);border-color:rgba(212,134,10,.55);}
+.prod-img{
+  height:180px;display:flex;align-items:center;
+  justify-content:center;font-size:3.5rem;position:relative;
+}
+.prod-img::before{content:'';position:absolute;inset:0;opacity:.35;}
+.pi-1::before{background:linear-gradient(135deg,#D4860A,#F0A832);}
+.pi-2::before{background:linear-gradient(135deg,#8B5200,#D4860A);}
+.pi-3::before{background:linear-gradient(135deg,#3A5A2A,#6B8B3F);}
+.pi-4::before{background:linear-gradient(135deg,#D4860A,#FDF6E3);}
+.prod-body{padding:1.3rem;}
+.prod-name{
+  font-family:'Playfair Display',serif;font-size:1.2rem;
+  color:var(--crema);margin-bottom:.4rem;
+}
+.prod-desc{font-size:.83rem;color:rgba(253,246,227,.5);line-height:1.6;margin-bottom:1.1rem;}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{
+  font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--miel-l);
+}
+.btn-buy{
+  background:var(--miel);color:#fff;border:none;
+  padding:.5rem 1.1rem;border-radius:.2rem;
+  font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;transition:background .2s;
+}
+.btn-buy:hover{background:var(--miel-d);}
+
+/* ── PROCESO ── */
+#proceso{padding:6rem 2rem;background:var(--crema2);}
+.proceso-inner{max-width:1000px;margin:0 auto;}
+.proceso-header{text-align:center;margin-bottom:4rem;}
+.pasos{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2rem;
+  position:relative;
+}
+.pasos::before{
+  content:'';position:absolute;
+  top:2.2rem;left:8%;right:8%;height:1px;
+  background:linear-gradient(to right,transparent,var(--miel),transparent);
+}
+.paso{text-align:center;padding:1rem;}
+.paso-ico{
+  width:3.8rem;height:3.8rem;border-radius:50%;
+  background:linear-gradient(135deg,var(--miel),var(--miel-l));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;margin:0 auto 1rem;
+  position:relative;z-index:1;
+  box-shadow:0 4px 18px rgba(212,134,10,.3);
+}
+.paso h3{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:.4rem;}
+.paso p{font-size:.82rem;color:var(--txt2);line-height:1.6;}
+
+/* ── CONTACTO ── */
+#contacto{
+  background:var(--madera);padding:6rem 2rem;
+  position:relative;overflow:hidden;
+}
+#contacto::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 50%,rgba(212,134,10,.15) 0%,transparent 60%),
+             radial-gradient(circle at 80% 30%,rgba(240,168,50,.1) 0%,transparent 50%);
+}
+.contacto-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.contacto-inner .section-title{color:var(--crema);}
+.contacto-inner .section-tag{color:var(--miel-l);}
+.contacto-inner>p{color:rgba(253,246,227,.65);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem;}
+.contact-cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1rem;margin-bottom:2.5rem;
+}
+.cc{
+  background:rgba(255,255,255,.07);border:1px solid rgba(240,168,50,.2);
+  border-radius:.4rem;padding:1.3rem;text-align:center;transition:background .3s;
+}
+.cc:hover{background:rgba(255,255,255,.12);}
+.cc .ic{font-size:1.6rem;margin-bottom:.6rem;}
+.cc h4{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--crema);margin-bottom:.2rem;}
+.cc p{font-size:.8rem;color:rgba(253,246,227,.55);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;}
+.ff{
+  background:rgba(255,255,255,.08);border:1px solid rgba(240,168,50,.22);
+  border-radius:.3rem;padding:.85rem 1rem;
+  color:var(--crema);font-family:'DM Sans',sans-serif;font-size:.88rem;
+  width:100%;outline:none;transition:border-color .2s;
+}
+.ff::placeholder{color:rgba(253,246,227,.3);}
+.ff:focus{border-color:rgba(240,168,50,.65);}
+textarea.ff{resize:vertical;min-height:110px;}
+.btn-send{
+  background:var(--miel-l);color:var(--madera-d);border:none;
+  padding:.85rem 2.2rem;border-radius:.2rem;
+  font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  transition:background .2s,transform .2s;margin-top:.5rem;
+}
+.btn-send:hover{background:var(--miel);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--negro);padding:2.5rem 2rem;text-align:center;
+  border-top:1px solid rgba(212,134,10,.12);
+}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--miel-l);margin-bottom:.5rem;}
+.foot-sub{font-size:.72rem;color:rgba(253,246,227,.28);letter-spacing:.08em;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  #historia{grid-template-columns:1fr;gap:2.5rem;}
+  .form-row{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .pasos::before{display:none;}
+  .sticky-info{left:2%;max-width:160px;}
+  .sticky-info h2{font-size:1.3rem;}
+}
 </style>
 </head>
 <body>
@@ -713,27 +380,28 @@
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <span class="bee">🐝</span> Miel Artesanal
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="none" stroke="#F0A832" stroke-width="1.5"/>
+      <polygon points="14,7 21,11 21,19 14,23 7,19 7,11" fill="rgba(240,168,50,0.2)" stroke="#F0A832" stroke-width="1"/>
+    </svg>
+    Miel Real
   </a>
   <ul class="nav-links">
     <li><a href="#historia">Nosotros</a></li>
     <li><a href="#productos">Productos</a></li>
-    <li><a href="#galeria">Galería</a></li>
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ══════════════ HERO ══════════════ -->
 <section id="hero">
-  <div id="canvas-container">
-    <canvas id="hero-canvas"></canvas>
-  </div>
-  <div class="hero-overlay">
-    <div class="hero-badge">100% Natural · Artesanal · Sin conservadores</div>
-    <h1 class="hero-title">La <em>dulzura</em><br>de la colmena</h1>
-    <p class="hero-sub">Miel pura cosechada con amor, directamente de nuestras colmenas de madera al campo.</p>
-    <a href="#productos" class="hero-cta">Descubrir productos</a>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">🐝 100% Natural · Sin conservadores · Guerrero, México</div>
+    <h1 class="hero-title">Miel <em>Real</em></h1>
+    <p class="hero-sub">Directamente de nuestras colmenas artesanales a tu mesa.</p>
+    <a href="#sticky-wrap" class="hero-cta">Conocer la colmena</a>
   </div>
   <div class="scroll-hint">
     <span>Scroll</span>
@@ -741,468 +409,550 @@
   </div>
 </section>
 
-<!-- HISTORIA -->
+<!-- ══════════════ STICKY SCROLL ══════════════ -->
+<div id="sticky-wrap">
+  <div id="sticky-scene">
+    <canvas id="hive-canvas"></canvas>
+
+    <!-- Info lateral izquierda -->
+    <div class="sticky-info">
+      <div class="section-tag">Conoce tu colmena</div>
+      <h2>Así se <em>construye</em> nuestra colmena</h2>
+      <p>Cada parte cumple una función esencial para el bienestar de nuestras abejas y la calidad de nuestra miel.</p>
+      <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    </div>
+
+    <!-- Etiquetas de componentes (aparecen con el scroll) -->
+    <div class="hive-labels" id="hlabels">
+
+      <!-- IZQUIERDA -->
+      <div class="hlabel left" id="lbl-tapa"
+           style="top:12%;right:55%;">
+        <div class="hlabel-text">
+          <h4>Tapa exterior</h4>
+          <p>Protege la colmena de la lluvia y el sol. Ventila internamente.</p>
+        </div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-dot"></div>
+      </div>
+
+      <div class="hlabel left" id="lbl-alza"
+           style="top:30%;right:55%;">
+        <div class="hlabel-text">
+          <h4>Alza melaria</h4>
+          <p>Las abejas almacenan aquí la miel que luego cosechamos.</p>
+        </div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-dot"></div>
+      </div>
+
+      <div class="hlabel left" id="lbl-exc"
+           style="top:50%;right:55%;">
+        <div class="hlabel-text">
+          <h4>Separador de reinas</h4>
+          <p>Impide que la reina suba a las alzas melarias.</p>
+        </div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-dot"></div>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="hlabel right" id="lbl-panales"
+           style="top:22%;left:57%;">
+        <div class="hlabel-dot"></div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-text">
+          <h4>Los panales</h4>
+          <p>Las abejas almacenan la miel y el polen, y cuidan a sus crías.</p>
+        </div>
+      </div>
+
+      <div class="hlabel right" id="lbl-camara"
+           style="top:43%;left:57%;">
+        <div class="hlabel-dot"></div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-text">
+          <h4>Cámara de cría</h4>
+          <p>Aquí la reina pone los huevos y nacen las nuevas abejas.</p>
+        </div>
+      </div>
+
+      <div class="hlabel right" id="lbl-base"
+           style="top:70%;left:57%;">
+        <div class="hlabel-dot"></div>
+        <div class="hlabel-line"></div>
+        <div class="hlabel-text">
+          <h4>Base / Piso sanitario</h4>
+          <p>Permite ventilación y mantiene la colmena limpia y estable.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ TRUST BAR ══════════════ -->
+<div id="trust">
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    100% Natural
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    Apicultura Responsable
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    Envíos a todo el país
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Calidad Garantizada
+  </div>
+</div>
+
+<!-- ══════════════ HISTORIA ══════════════ -->
 <section>
   <div id="historia">
-    <div class="historia-img reveal">
-      <svg class="hex-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="hex" x="0" y="0" width="30" height="26" patternUnits="userSpaceOnUse">
-            <polygon points="15,1 28,8 28,22 15,29 2,22 2,8" fill="none" stroke="#F0A832" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="200" height="200" fill="url(#hex)"/>
+    <div class="historia-visual reveal">
+      <svg class="hex-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><pattern id="hx" x="0" y="0" width="30" height="26" patternUnits="userSpaceOnUse">
+          <polygon points="15,1 28,8 28,22 15,29 2,22 2,8" fill="none" stroke="#F0A832" stroke-width="1"/>
+        </pattern></defs>
+        <rect width="200" height="200" fill="url(#hx)"/>
       </svg>
-      <div class="center-icon">🍯</div>
+      <div class="center-emoji">🍯</div>
     </div>
     <div class="historia-text reveal">
       <div class="section-tag">Nuestra historia</div>
       <h2 class="section-title">Tres generaciones<br><em>de tradición</em></h2>
       <p>Todo comenzó con un sueño simple: criar abejas con respeto y cosechar la miel que la naturaleza nos regala. Hoy, con más de 20 años de experiencia, seguimos fieles a esa misión.</p>
       <p>Nuestras colmenas de madera artesanal están ubicadas en campos libres de agroquímicos, rodeadas de flores silvestres que dan a nuestra miel un sabor único e incomparable.</p>
-      <div class="historia-stats">
-        <div class="stat-item">
-          <span class="stat-num">20+</span>
-          <span class="stat-label">Años de experiencia</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">50</span>
-          <span class="stat-label">Colmenas activas</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">100%</span>
-          <span class="stat-label">Natural y pura</span>
-        </div>
+      <div class="stats-row">
+        <div class="stat"><span class="stat-n">20+</span><span class="stat-l">Años</span></div>
+        <div class="stat"><span class="stat-n">50</span><span class="stat-l">Colmenas</span></div>
+        <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Natural</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTOS -->
+<!-- ══════════════ PRODUCTOS ══════════════ -->
 <section id="productos">
   <div class="productos-inner">
-    <div class="productos-header reveal">
+    <div class="prod-header reveal">
       <div class="section-tag">Lo que ofrecemos</div>
-      <h2 class="section-title" style="color:var(--crema);">Nuestros <em>productos</em></h2>
+      <h2 class="section-title">Nuestros <em>productos</em></h2>
     </div>
-    <div class="productos-grid reveal">
-      <div class="producto-card">
-        <div class="producto-img img-miel">🍯</div>
-        <div class="producto-info">
-          <h3 class="producto-nombre">Miel Pura de Abeja</h3>
-          <p class="producto-desc">Cosechada directamente del panal. Dorada, espesa y llena de nutrientes naturales. Sin mezclas ni aditivos.</p>
-          <div class="producto-footer">
-            <span class="producto-precio">$85</span>
-            <button class="btn-comprar">Pedir</button>
-          </div>
+    <div class="prod-grid reveal">
+      <div class="prod-card">
+        <div class="prod-img pi-1">🍯</div>
+        <div class="prod-body">
+          <h3 class="prod-name">Miel Pura de Abeja</h3>
+          <p class="prod-desc">Cosechada directamente del panal. Dorada, espesa y llena de nutrientes naturales. Sin mezclas.</p>
+          <div class="prod-foot"><span class="prod-price">$85</span><button class="btn-buy">Pedir</button></div>
         </div>
       </div>
-      <div class="producto-card">
-        <div class="producto-img img-panal">🧇</div>
-        <div class="producto-info">
-          <h3 class="producto-nombre">Panal en Cera</h3>
-          <p class="producto-desc">Panal completo con cera natural de abeja. La forma más pura de disfrutar la miel tal como la naturaleza la hizo.</p>
-          <div class="producto-footer">
-            <span class="producto-precio">$120</span>
-            <button class="btn-comprar">Pedir</button>
-          </div>
+      <div class="prod-card">
+        <div class="prod-img pi-2">🧇</div>
+        <div class="prod-body">
+          <h3 class="prod-name">Panal en Cera</h3>
+          <p class="prod-desc">Panal completo con cera natural de abeja. La forma más pura de disfrutar la miel.</p>
+          <div class="prod-foot"><span class="prod-price">$120</span><button class="btn-buy">Pedir</button></div>
         </div>
       </div>
-      <div class="producto-card">
-        <div class="producto-img img-propol">🌿</div>
-        <div class="producto-info">
-          <h3 class="producto-nombre">Propóleo Natural</h3>
-          <p class="producto-desc">Extracto puro de propóleo, reconocido por sus propiedades antibacterianas y su poder para fortalecer el sistema inmune.</p>
-          <div class="producto-footer">
-            <span class="producto-precio">$95</span>
-            <button class="btn-comprar">Pedir</button>
-          </div>
+      <div class="prod-card">
+        <div class="prod-img pi-3">🌿</div>
+        <div class="prod-body">
+          <h3 class="prod-name">Propóleo Natural</h3>
+          <p class="prod-desc">Extracto puro reconocido por sus propiedades antibacterianas y su poder inmunológico.</p>
+          <div class="prod-foot"><span class="prod-price">$95</span><button class="btn-buy">Pedir</button></div>
         </div>
       </div>
-      <div class="producto-card">
-        <div class="producto-img img-jalea">✨</div>
-        <div class="producto-info">
-          <h3 class="producto-nombre">Jalea Real</h3>
-          <p class="producto-desc">El superalimento de las abejas. Jalea real fresca, concentrada, recolectada con cuidado para mantener todas sus propiedades.</p>
-          <div class="producto-footer">
-            <span class="producto-precio">$180</span>
-            <button class="btn-comprar">Pedir</button>
-          </div>
+      <div class="prod-card">
+        <div class="prod-img pi-4">✨</div>
+        <div class="prod-body">
+          <h3 class="prod-name">Jalea Real</h3>
+          <p class="prod-desc">El superalimento de las abejas. Recolectada con cuidado para conservar todas sus propiedades.</p>
+          <div class="prod-foot"><span class="prod-price">$180</span><button class="btn-buy">Pedir</button></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GALERÍA -->
-<section id="galeria">
-  <div class="galeria-inner">
-    <div class="galeria-header reveal">
-      <div class="section-tag">Galería</div>
-      <h2 class="section-title">El mundo de<br><em>nuestras abejas</em></h2>
-    </div>
-    <div class="galeria-grid reveal">
-      <div class="galeria-item gi-1">🐝<span class="galeria-label">Nuestras abejas</span></div>
-      <div class="galeria-item gi-2">🍯<span class="galeria-label">Cosecha</span></div>
-      <div class="galeria-item gi-3">🌸<span class="galeria-label">Campos florales</span></div>
-      <div class="galeria-item gi-4">🧱<span class="galeria-label">Colmenas</span></div>
-      <div class="galeria-item gi-5">✨<span class="galeria-label">Productos</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESO -->
+<!-- ══════════════ PROCESO ══════════════ -->
 <section id="proceso">
   <div class="proceso-inner">
     <div class="proceso-header reveal">
       <div class="section-tag">Cómo lo hacemos</div>
-      <h2 class="section-title">De la colmena<br><em>a tu mesa</em></h2>
+      <h2 class="section-title">De la colmena <em>a tu mesa</em></h2>
     </div>
-    <div class="proceso-steps reveal">
-      <div class="paso">
-        <div class="paso-icon">🌸<span class="paso-num">1</span></div>
-        <h3>Polinización</h3>
-        <p>Las abejas recolectan néctar de flores silvestres en campos naturales libres de químicos.</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">🏡<span class="paso-num">2</span></div>
-        <h3>La colmena</h3>
-        <p>Producen la miel en colmenas de madera artesanal, donde maduran de forma natural.</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">🔍<span class="paso-num">3</span></div>
-        <h3>Inspección</h3>
-        <p>Revisamos cada colmena con cuidado para asegurar la salud de las abejas y la calidad de la miel.</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">🪣<span class="paso-num">4</span></div>
-        <h3>Cosecha</h3>
-        <p>Extraemos la miel manualmente, sin calor excesivo, para preservar enzimas y nutrientes.</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">🍯<span class="paso-num">5</span></div>
-        <h3>Envasado</h3>
-        <p>Se filtra suavemente y se envasa en recipientes de vidrio para conservar su frescura.</p>
-      </div>
+    <div class="pasos reveal">
+      <div class="paso"><div class="paso-ico">🌸</div><h3>Polinización</h3><p>Las abejas recolectan néctar de flores silvestres en campos naturales.</p></div>
+      <div class="paso"><div class="paso-ico">🏡</div><h3>La colmena</h3><p>Producen la miel en colmenas artesanales donde madura de forma natural.</p></div>
+      <div class="paso"><div class="paso-ico">🔍</div><h3>Inspección</h3><p>Revisamos cada colmena para garantizar la salud de las abejas.</p></div>
+      <div class="paso"><div class="paso-ico">🪣</div><h3>Cosecha</h3><p>Extraemos la miel manualmente sin calor excesivo para preservar nutrientes.</p></div>
+      <div class="paso"><div class="paso-ico">🍯</div><h3>Envasado</h3><p>Se filtra suavemente y se envasa en vidrio para conservar su frescura.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACTO -->
+<!-- ══════════════ CONTACTO ══════════════ -->
 <section id="contacto">
   <div class="contacto-inner">
     <div class="section-tag reveal">Contáctanos</div>
     <h2 class="section-title reveal">Hablemos sobre<br><em>nuestra miel</em></h2>
-    <p class="reveal">¿Quieres hacer un pedido, necesitas más información o te interesa comprar al mayoreo? Estamos para atenderte con gusto.</p>
-
-    <div class="contacto-grid reveal">
-      <div class="contacto-card">
-        <div class="icon">📱</div>
-        <h4>WhatsApp</h4>
-        <p>+52 741 000 0000</p>
-      </div>
-      <div class="contacto-card">
-        <div class="icon">📍</div>
-        <h4>Ubicación</h4>
-        <p>Guerrero, México</p>
-      </div>
-      <div class="contacto-card">
-        <div class="icon">📧</div>
-        <h4>Correo</h4>
-        <p>miel@ejemplo.com</p>
-      </div>
+    <p class="reveal">¿Quieres hacer un pedido o tienes preguntas? Estamos para atenderte.</p>
+    <div class="contact-cards reveal">
+      <div class="cc"><div class="ic">📱</div><h4>WhatsApp</h4><p>+52 741 000 0000</p></div>
+      <div class="cc"><div class="ic">📍</div><h4>Ubicación</h4><p>Guerrero, México</p></div>
+      <div class="cc"><div class="ic">📧</div><h4>Correo</h4><p>miel@ejemplo.com</p></div>
     </div>
-
     <div class="reveal">
       <div class="form-row">
-        <input type="text" class="form-field" placeholder="Tu nombre">
-        <input type="tel" class="form-field" placeholder="Tu teléfono">
+        <input type="text" class="ff" placeholder="Tu nombre" id="fn">
+        <input type="tel" class="ff" placeholder="Tu teléfono" id="ft">
       </div>
-      <textarea class="form-field" placeholder="¿En qué podemos ayudarte?"></textarea>
-      <br>
-      <button class="btn-enviar">Enviar mensaje</button>
+      <textarea class="ff" placeholder="¿En qué podemos ayudarte?" id="fm"></textarea><br>
+      <button class="btn-send" id="sendBtn">Enviar mensaje</button>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">🐝 Miel Artesanal</div>
-  <div class="footer-sub">© 2025 · Hecho con amor y cera de abeja · Guerrero, México</div>
+  <div class="foot-logo">🐝 Miel Real</div>
+  <div class="foot-sub">© 2025 · Hecho con amor y cera de abeja · Guerrero, México</div>
 </footer>
 
 <!-- THREE.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ============================================================
-//  ANIMACIÓN 3D DE COLMENA CON THREE.JS
-// ============================================================
-(function() {
+// ════════════════════════════════════════════════════════════════
+//  HERO CANVAS — colmena armada con partículas
+// ════════════════════════════════════════════════════════════════
+(function(){
   const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
+  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x1A0C02, 0.035);
+  scene.fog = new THREE.FogExp2(0x1A0C02,.04);
 
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
-  camera.position.set(0, 2, 14);
+  const camera = new THREE.PerspectiveCamera(42,1,.1,200);
+  camera.position.set(0,1.5,13);
 
-  function resize() {
-    const w = canvas.parentElement.clientWidth;
-    const h = canvas.parentElement.clientHeight;
-    renderer.setSize(w, h);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+  function resize(){
+    const w=canvas.parentElement.clientWidth,h=canvas.parentElement.clientHeight;
+    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
   }
-  resize();
-  window.addEventListener('resize', resize);
+  resize();window.addEventListener('resize',resize);
 
-  // LUCES
-  const ambLight = new THREE.AmbientLight(0x8B5200, 0.6);
-  scene.add(ambLight);
+  scene.add(new THREE.AmbientLight(0x8B5200,.7));
+  const sun=new THREE.DirectionalLight(0xF0A832,2);sun.position.set(5,10,8);scene.add(sun);
+  const rim=new THREE.PointLight(0xD4860A,1.3,25);rim.position.set(-5,3,-3);scene.add(rim);
 
-  const sunLight = new THREE.DirectionalLight(0xF0A832, 1.8);
-  sunLight.position.set(5, 10, 8);
-  sunLight.castShadow = true;
-  scene.add(sunLight);
+  // Partículas
+  const pg=new THREE.BufferGeometry();
+  const pc=150,pp=new Float32Array(pc*3),ph=new Float32Array(pc);
+  for(let i=0;i<pc;i++){pp[i*3]=(Math.random()-.5)*22;pp[i*3+1]=(Math.random()-.5)*13;pp[i*3+2]=(Math.random()-.5)*13-2;ph[i]=Math.random()*Math.PI*2;}
+  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xF0A832,size:.07,transparent:true,opacity:.55}));
+  scene.add(pts);
 
-  const rimLight = new THREE.PointLight(0xD4860A, 1.2, 25);
-  rimLight.position.set(-5, 3, -3);
-  scene.add(rimLight);
+  // Materiales
+  const mWD=new THREE.MeshStandardMaterial({color:0x5C3010,roughness:.82,metalness:.05});
+  const mWM=new THREE.MeshStandardMaterial({color:0x7A4520,roughness:.72,metalness:.06});
+  const mWL=new THREE.MeshStandardMaterial({color:0xA0652A,roughness:.62,metalness:.09});
+  const mHo=new THREE.MeshStandardMaterial({color:0xD48B0A,roughness:.28,metalness:.22,emissive:0x6B3000,emissiveIntensity:.18});
+  const mFr=new THREE.MeshStandardMaterial({color:0x8B5200,roughness:.7,metalness:.1});
 
-  const fillLight = new THREE.PointLight(0xFFF5D6, 0.5, 20);
-  fillLight.position.set(3, -2, 5);
-  scene.add(fillLight);
+  function box(w,h,d,m){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);}
 
-  // PARTÍCULAS DE ABEJAS / POLVO
-  const particleGeo = new THREE.BufferGeometry();
-  const pCount = 180;
-  const pPos = new Float32Array(pCount * 3);
-  const pPhase = new Float32Array(pCount);
-  for (let i = 0; i < pCount; i++) {
-    pPos[i*3]   = (Math.random()-0.5) * 24;
-    pPos[i*3+1] = (Math.random()-0.5) * 14;
-    pPos[i*3+2] = (Math.random()-0.5) * 14 - 2;
-    pPhase[i]   = Math.random() * Math.PI * 2;
-  }
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  const particleMat = new THREE.PointsMaterial({
-    color: 0xF0A832, size: 0.06, transparent: true, opacity: 0.6
-  });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  // MATERIALES DE MADERA
-  const woodDark  = new THREE.MeshStandardMaterial({ color: 0x5C3010, roughness: 0.85, metalness: 0.05 });
-  const woodMid   = new THREE.MeshStandardMaterial({ color: 0x7A4520, roughness: 0.75, metalness: 0.05 });
-  const woodLight = new THREE.MeshStandardMaterial({ color: 0xA0652A, roughness: 0.65, metalness: 0.08 });
-  const honeyMat  = new THREE.MeshStandardMaterial({ color: 0xD4860A, roughness: 0.3, metalness: 0.2, emissive: 0x6B3000, emissiveIntensity: 0.15 });
-  const frameMat  = new THREE.MeshStandardMaterial({ color: 0x8B5200, roughness: 0.7, metalness: 0.1 });
-
-  // FUNCIÓN PARA CREAR UNA CAJA CON BISELES
-  function makeBox(w, h, d, mat, bevel=true) {
-    let geo;
-    if (bevel) {
-      geo = new THREE.BoxGeometry(w, h, d, 2, 2, 2);
-    } else {
-      geo = new THREE.BoxGeometry(w, h, d);
+  const hive=new THREE.Group();scene.add(hive);
+  const ld=[
+    {w:3.2,h:.55,d:2.2,m:mWD},{w:3.0,h:.75,d:2.0,m:mWM},
+    {w:3.0,h:.75,d:2.0,m:mWL},{w:3.0,h:.45,d:2.0,m:mWM},
+    {w:3.0,h:.85,d:2.0,m:mWL},{w:3.0,h:.85,d:2.0,m:mWM},
+    {w:3.2,h:.35,d:2.2,m:mWD}
+  ];
+  let yo=0;
+  ld.forEach((l,i)=>{
+    const g=new THREE.Group();
+    g.add(box(l.w,l.h,l.d,l.m));
+    if(i>=1&&i<=5&&i!==3){
+      for(let f=0;f<4;f++){const fr=box(.04,l.h*.82,l.d*.86,mFr);fr.position.x=-.55+f*.37;g.add(fr);}
+      for(let f=0;f<3;f++){const ho=box(.28,l.h*.72,l.d*.80,mHo);ho.position.x=-.37+f*.37;g.add(ho);}
     }
-    return new THREE.Mesh(geo, mat);
+    if(i===6){
+      [[-.7,.26,.55],[.7,.26,.55],[-.7,.26,-.55],[.7,.26,-.55]].forEach(([x,y,z],j)=>{
+        const r=box(3.4,.14,1.05,mWD);r.rotation.z=j%2===0?Math.PI*.11:-Math.PI*.11;r.position.set(x,y,z);g.add(r);
+      });
+    }
+    yo+=l.h;g.position.y=yo-l.h/2-2.4;hive.add(g);
+  });
+  [-1.2,1.2].forEach(x=>[-0.65,0.65].forEach(z=>{const leg=box(.11,1.1,.11,mWD);leg.position.set(x,-3.0,z);hive.add(leg);}));
+
+  let t=0;
+  const clock=new THREE.Clock();
+  (function animate(){
+    requestAnimationFrame(animate);
+    t+=clock.getDelta();
+    hive.rotation.y=Math.sin(t*.28)*.18;
+    rim.intensity=1.1+Math.sin(t*1.1)*.2;
+    const p=pg.attributes.position.array;
+    for(let i=0;i<pc;i++){p[i*3+1]+=Math.sin(t+ph[i])*.003;p[i*3]+=Math.cos(t*.5+ph[i])*.002;}
+    pg.attributes.position.needsUpdate=true;
+    renderer.render(scene,camera);
+  })();
+})();
+
+// ════════════════════════════════════════════════════════════════
+//  HIVE CANVAS — scroll-driven explosion
+// ════════════════════════════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('hive-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.shadowMap.enabled=true;
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(38,1,.1,200);
+  camera.position.set(2,2,12);
+  camera.lookAt(0,0,0);
+
+  function resize(){
+    const el=document.getElementById('sticky-scene');
+    const w=el.clientWidth,h=el.clientHeight;
+    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
+  }
+  resize();window.addEventListener('resize',resize);
+
+  // Luces cálidas
+  scene.add(new THREE.AmbientLight(0xFFF5CC,.9));
+  const key=new THREE.DirectionalLight(0xF0A832,2.2);key.position.set(6,10,8);key.castShadow=true;scene.add(key);
+  const fill=new THREE.PointLight(0xFFE4A0,.8,30);fill.position.set(-6,2,5);scene.add(fill);
+  const back=new THREE.PointLight(0xD4860A,.6,25);back.position.set(0,-3,-5);scene.add(back);
+
+  // Materiales con más detalle
+  const mats={
+    dark: new THREE.MeshStandardMaterial({color:0x5C3010,roughness:.88,metalness:.04}),
+    mid:  new THREE.MeshStandardMaterial({color:0x7A4520,roughness:.78,metalness:.06}),
+    light:new THREE.MeshStandardMaterial({color:0xBF834A,roughness:.65,metalness:.08}),
+    honey:new THREE.MeshStandardMaterial({color:0xE8960A,roughness:.22,metalness:.28,emissive:0x7A4000,emissiveIntensity:.25}),
+    frame:new THREE.MeshStandardMaterial({color:0x9B6210,roughness:.72,metalness:.1}),
+    metal:new THREE.MeshStandardMaterial({color:0x9AABB5,roughness:.45,metalness:.7}),
+    grass:new THREE.MeshStandardMaterial({color:0x4A7A2A,roughness:.95,metalness:0}),
+  };
+
+  function box(w,h,d,m,rx=0,ry=0,rz=0){
+    const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d,2,2,2),m);
+    mesh.rotation.set(rx,ry,rz);mesh.receiveShadow=true;mesh.castShadow=true;return mesh;
   }
 
-  // COLMENA = GRUPO DE CAPAS (alzas)
-  const hive = new THREE.Group();
-  scene.add(hive);
-
-  // Datos de cada alza: [ancho, alto, profundo, material, nombre]
-  const layerData = [
-    { w:3.2, h:0.6, d:2.2, mat:woodDark,  name:'base'   },   // 0 - fondo/tablero
-    { w:3.0, h:0.7, d:2.0, mat:woodMid,   name:'cámara1' },  // 1 - cámara de cría 1
-    { w:3.0, h:0.7, d:2.0, mat:woodLight, name:'cámara2' },  // 2 - cámara de cría 2
-    { w:3.0, h:0.5, d:2.0, mat:woodMid,   name:'excl'    },  // 3 - excluidor
-    { w:3.0, h:0.8, d:2.0, mat:woodLight, name:'alza1'   },  // 4 - alza 1
-    { w:3.0, h:0.8, d:2.0, mat:woodMid,   name:'alza2'   },  // 5 - alza 2
-    { w:3.2, h:0.4, d:2.2, mat:woodDark,  name:'tapa'    },  // 6 - tapa
+  // ── CAPAS DE LA COLMENA ──
+  // Cada entrada: {h, mat, hasFrames, isRoof, isBase, name, labelIds}
+  const layerDefs=[
+    // 0 — Base / piso sanitario
+    {h:.5,  mat:mats.dark,  isBase:true,  name:'base'},
+    // 1 — Cámara de cría inferior
+    {h:.78, mat:mats.mid,   hasFrames:true, name:'camara1'},
+    // 2 — Cámara de cría superior
+    {h:.78, mat:mats.light, hasFrames:true, name:'camara2'},
+    // 3 — Separador de reinas
+    {h:.18, mat:mats.metal, isSep:true,   name:'sep'},
+    // 4 — Alza melaria
+    {h:.9,  mat:mats.light, hasFrames:true, hasHoney:true, name:'alza'},
+    // 5 — Techo / tapa
+    {h:.32, mat:mats.dark,  isRoof:true,  name:'tapa'},
   ];
 
-  const layers = [];
-  let yOffset = 0;
+  // Destinos de explosión (cuánto sube cada capa al 100% de scroll)
+  // base queda fija, las demás se separan
+  const explodeY=[0, 0.9, 2.0, 3.2, 4.2, 6.5];
 
-  layerData.forEach((ld, i) => {
-    const group = new THREE.Group();
+  const layers=[];
+  let yo=0;
+  const W=3.0,D=2.1;
 
-    // Cuerpo principal
-    const body = makeBox(ld.w, ld.h, ld.d, ld.mat);
-    group.add(body);
+  layerDefs.forEach((ld,i)=>{
+    const g=new THREE.Group();
 
-    // Marcos de cuadros (para capas de cría/alza)
-    if (i >= 1 && i <= 5 && i !== 3) {
-      for (let f = 0; f < 4; f++) {
-        const frame = makeBox(0.04, ld.h * 0.85, ld.d * 0.88, frameMat, false);
-        frame.position.x = -0.55 + f * 0.37;
-        frame.position.y = 0;
-        frame.position.z = 0;
-        group.add(frame);
+    if(ld.isBase){
+      // Base con patas
+      const body=box(W+.2,ld.h,D+.2,mats.dark);g.add(body);
+      // entrada de abejas
+      const ent=box(.7,.1,.05,mats.dark);ent.position.set(0,0,D/2+.025);g.add(ent);
+      // patas
+      [-1.15,1.15].forEach(x=>[-0.72,0.72].forEach(z=>{
+        const leg=box(.12,1.0,.12,mats.dark);leg.position.set(x,-.75,z);g.add(leg);
+      }));
+      // hierba pequeña
+      for(let b=0;b<5;b++){
+        const blade=box(.04,.12+Math.random()*.1,.04,mats.grass);
+        blade.position.set(-1.1+b*.55,-(.5+.06),D*.5-.05);g.add(blade);
       }
-      // Miel en las celdillas (dentro del marco)
-      for (let f = 0; f < 3; f++) {
-        const honey = makeBox(0.28, ld.h * 0.75, ld.d * 0.82, honeyMat, false);
-        honey.position.x = -0.37 + f * 0.37;
-        group.add(honey);
+    } else if(ld.isRoof){
+      const body=box(W+.3,ld.h,D+.3,ld.mat);g.add(body);
+      // techo inclinado (4 paneles)
+      [[-.72,.22,.55],[.72,.22,.55],[-.72,.22,-.55],[.72,.22,-.55]].forEach(([x,y,z],j)=>{
+        const panel=box(3.5,.13,1.08,mats.mid);panel.rotation.z=j%2===0?Math.PI*.1:-Math.PI*.1;panel.position.set(x,y,z);g.add(panel);
+      });
+      // platina metálica encima
+      const plate=box(3.1,.06,2.0,mats.metal);plate.position.y=.38;g.add(plate);
+    } else if(ld.isSep){
+      // Excluidor de reinas — malla fina
+      const body=box(W+.05,ld.h,D+.05,mats.metal);g.add(body);
+      for(let w=-1.3;w<=1.3;w+=.18){
+        const wire=box(.025,ld.h,D+.05,mats.dark);wire.position.x=w;g.add(wire);
       }
-    }
-
-    // Peldaño de entrada (solo en cámara 1)
-    if (i === 1) {
-      const entrance = makeBox(0.8, 0.08, 0.06, woodDark, false);
-      entrance.position.set(0, -(ld.h/2 + 0.04), ld.d/2 + 0.03);
-      group.add(entrance);
-    }
-
-    // Tapa con tejado
-    if (i === 6) {
-      const roofL = makeBox(3.4, 0.15, 1.1, woodDark, false);
-      roofL.rotation.z = Math.PI * 0.12;
-      roofL.position.set(-0.7, 0.28, 0.55);
-      group.add(roofL);
-      const roofR = makeBox(3.4, 0.15, 1.1, woodDark, false);
-      roofR.rotation.z = -Math.PI * 0.12;
-      roofR.position.set(0.7, 0.28, 0.55);
-      group.add(roofR);
-      const roofLb = makeBox(3.4, 0.15, 1.1, woodDark, false);
-      roofLb.rotation.z = Math.PI * 0.12;
-      roofLb.position.set(-0.7, 0.28, -0.55);
-      group.add(roofLb);
-      const roofRb = makeBox(3.4, 0.15, 1.1, woodDark, false);
-      roofRb.rotation.z = -Math.PI * 0.12;
-      roofRb.position.set(0.7, 0.28, -0.55);
-      group.add(roofRb);
-    }
-
-    yOffset += ld.h;
-    group.position.y = yOffset - ld.h / 2 - 2.5;
-    group.userData.baseY = group.position.y;
-    group.userData.index = i;
-    group.userData.name  = ld.name;
-
-    layers.push(group);
-    hive.add(group);
-  });
-
-  // PATAS DE LA COLMENA
-  [-1.2, 1.2].forEach(x => {
-    [-0.7, 0.7].forEach(z => {
-      const leg = makeBox(0.12, 1.2, 0.12, woodDark, false);
-      leg.position.set(x, -3.1, z);
-      hive.add(leg);
-    });
-  });
-
-  // ANIMACIÓN DE EXPLOSIÓN EN CAPAS
-  let explodeProgress = 0;
-  let exploding = false;
-  let explodeDone = false;
-  const explodeOffsets = [0, 1.8, 3.2, 4.4, 5.5, 6.5, 7.8]; // cuánto sube cada capa
-
-  // Empieza la explosión después de 1.5s
-  setTimeout(() => { exploding = true; }, 1500);
-
-  let t = 0;
-  const clock = new THREE.Clock();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const dt = clock.getDelta();
-    t += dt;
-
-    // Rotación suave de la colmena completa
-    hive.rotation.y = Math.sin(t * 0.3) * 0.15;
-
-    // Animación de explosión
-    if (exploding && explodeProgress < 1) {
-      explodeProgress += dt * 0.35;
-      if (explodeProgress >= 1) {
-        explodeProgress = 1;
-        explodeDone = true;
-      }
-      // Ease out
-      const eased = 1 - Math.pow(1 - explodeProgress, 3);
-      layers.forEach((layer, i) => {
-        const target = layer.userData.baseY + explodeOffsets[i] * eased;
-        layer.position.y = target;
-
-        // Un poquito de inclinación al explotar
-        if (!explodeDone) {
-          layer.rotation.x = Math.sin(t + i) * 0.03 * (1 - eased);
-          layer.rotation.z = Math.cos(t * 0.7 + i) * 0.02 * (1 - eased);
+    } else {
+      // Cuerpo de alza / cámara
+      const body=box(W,ld.h,D,ld.mat);g.add(body);
+      // esquinas/juntas de madera (fingerjoint visual)
+      [-.48,.48].forEach(x=>{
+        for(let s=-.3;s<=.3;s+=.2){
+          const jt=box(.07,.12,.07,mats.dark);jt.position.set(x*(W/2+.03),s,D/2);g.add(jt);
+          const jt2=box(.07,.12,.07,mats.dark);jt2.position.set(x*(W/2+.03),s,-D/2);g.add(jt2);
         }
       });
+      if(ld.hasFrames){
+        // marcos de cuadros
+        const FRAMES=5;
+        for(let f=0;f<FRAMES;f++){
+          const fx=-((FRAMES-1)/2-.f)*((W*.85)/(FRAMES-1));
+          const topBar=box((W*.85)/(FRAMES)*.7,.05,D*.88,mats.frame);topBar.position.set(fx,ld.h*.4,0);g.add(topBar);
+          const botBar=box((W*.85)/(FRAMES)*.7,.05,D*.88,mats.frame);botBar.position.set(fx,-ld.h*.4,0);g.add(botBar);
+          const sideL=box(.03,ld.h*.8,.03,mats.frame);sideL.position.set(fx,0,D*.42);g.add(sideL);
+          const sideR=box(.03,ld.h*.8,.03,mats.frame);sideR.position.set(fx,0,-D*.42);g.add(sideR);
+          if(ld.hasHoney){
+            const hc=box((W*.85)/(FRAMES)*.55,ld.h*.7,D*.72,mats.honey);hc.position.set(fx,0,0);g.add(hc);
+          }
+        }
+      }
     }
 
-    // Flotación suave después de explotar
-    if (explodeDone) {
-      layers.forEach((layer, i) => {
-        const phase = i * 0.6;
-        layer.position.y = layer.userData.baseY + explodeOffsets[i] + Math.sin(t * 0.8 + phase) * 0.05;
-      });
-    }
+    yo+=ld.h;
+    g.position.y=yo-ld.h/2-.5;
+    g.userData.baseY=g.position.y;
+    g.userData.targetY=g.position.y+explodeY[i];
+    g.userData.currentY=g.position.y;
+    layers.push(g);
+    scene.add(g);
+  });
 
-    // Animación de partículas
-    const positions = particleGeo.attributes.position.array;
-    for (let i = 0; i < pCount; i++) {
-      positions[i*3+1] += Math.sin(t + pPhase[i]) * 0.003;
-      positions[i*3]   += Math.cos(t * 0.5 + pPhase[i]) * 0.002;
-    }
-    particleGeo.attributes.position.needsUpdate = true;
+  // Partículas de polvo / abejas
+  const pg=new THREE.BufferGeometry();
+  const pc=80,pp=new Float32Array(pc*3),ph2=new Float32Array(pc);
+  for(let i=0;i<pc;i++){pp[i*3]=(Math.random()-.5)*16;pp[i*3+1]=(Math.random()-.5)*10;pp[i*3+2]=(Math.random()-.5)*10;ph2[i]=Math.random()*Math.PI*2;}
+  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  const bees=new THREE.Points(pg,new THREE.PointsMaterial({color:0xD4860A,size:.06,transparent:true,opacity:.5}));
+  scene.add(bees);
 
-    // Luz dinámica
-    rimLight.intensity = 1.0 + Math.sin(t * 1.2) * 0.2;
+  // ── SCROLL LOGIC ──
+  const wrap=document.getElementById('sticky-wrap');
+  const prog=document.getElementById('prog');
+  const labels={
+    tapa:   {el:document.getElementById('lbl-tapa'),   threshold:.15},
+    panales:{el:document.getElementById('lbl-panales'),threshold:.25},
+    alza:   {el:document.getElementById('lbl-alza'),   threshold:.35},
+    exc:    {el:document.getElementById('lbl-exc'),    threshold:.5},
+    camara: {el:document.getElementById('lbl-camara'), threshold:.6},
+    base:   {el:document.getElementById('lbl-base'),   threshold:.8},
+  };
 
-    renderer.render(scene, camera);
+  function getScrollProgress(){
+    const rect=wrap.getBoundingClientRect();
+    const total=wrap.offsetHeight-window.innerHeight;
+    const scrolled=-rect.top;
+    return Math.max(0,Math.min(1,scrolled/total));
   }
 
-  animate();
+  let animT=0;
+  const clock=new THREE.Clock();
+  const hiveGroup=new THREE.Group();
+  layers.forEach(l=>{ scene.remove(l); hiveGroup.add(l); });
+  scene.add(hiveGroup);
 
-  // NAVEGACIÓN - scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  });
+  function lerp(a,b,t){return a+(b-a)*t;}
+  const LERP_SPEED=6;
 
-  // REVEAL EN SCROLL
-  const reveals = document.querySelectorAll('.reveal');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
+  (function animate(){
+    requestAnimationFrame(animate);
+    const dt=Math.min(clock.getDelta(),.05);
+    animT+=dt;
+
+    const p=getScrollProgress();
+
+    // Barra de progreso
+    prog.style.width=(p*100)+'%';
+
+    // Etiquetas
+    Object.entries(labels).forEach(([k,v])=>{
+      const show=p>=v.threshold;
+      v.el.classList.toggle('visible',show);
+    });
+
+    // Rotación sutil de la colmena
+    hiveGroup.rotation.y=Math.sin(animT*.25)*.12;
+
+    // Mover cada capa según el progreso con lerp suave
+    layers.forEach((layer,i)=>{
+      const eased=1-Math.pow(1-p,2.5);
+      const targetY=lerp(layer.userData.baseY,layer.userData.targetY,eased);
+      layer.position.y=lerp(layer.position.y,targetY,LERP_SPEED*dt);
+      // pequeña oscilación una vez separadas
+      if(p>.1){
+        const phase=i*.7;
+        layer.position.y+=Math.sin(animT*.6+phase)*.015*p;
       }
     });
-  }, { threshold: 0.15 });
 
-  reveals.forEach(el => revealObs.observe(el));
+    // Partículas
+    const pp2=pg.attributes.position.array;
+    for(let i=0;i<pc;i++){pp2[i*3+1]+=Math.sin(animT+ph2[i])*.003;pp2[i*3]+=Math.cos(animT*.4+ph2[i])*.002;}
+    pg.attributes.position.needsUpdate=true;
 
-  // BOTONES PEDIR - WhatsApp
-  document.querySelectorAll('.btn-comprar').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const producto = btn.closest('.producto-card').querySelector('.producto-nombre').textContent;
-      const msg = encodeURIComponent(`Hola! Me interesa: ${producto}`);
-      window.open(`https://wa.me/527410000000?text=${msg}`, '_blank');
-    });
-  });
+    renderer.render(scene,camera);
+  })();
 
-  // ENVIAR MENSAJE
-  document.querySelector('.btn-enviar').addEventListener('click', () => {
-    const nombre = document.querySelectorAll('.form-field')[0].value;
-    const tel    = document.querySelectorAll('.form-field')[1].value;
-    const msg    = document.querySelectorAll('.form-field')[2].value;
-    if (!nombre || !msg) return alert('Por favor completa tu nombre y mensaje.');
-    const wa = encodeURIComponent(`Hola! Soy ${nombre} (${tel}).\n${msg}`);
-    window.open(`https://wa.me/527410000000?text=${wa}`, '_blank');
-  });
-
+  // ── FORZAR RESIZE cuando el sticky se vuelva visible ──
+  const ro=new ResizeObserver(()=>resize());
+  ro.observe(document.getElementById('sticky-scene'));
 })();
+
+// ════════════════════════════════════════════════════════════════
+//  UI GENERAL
+// ════════════════════════════════════════════════════════════════
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('dark',scrollY>60);});
+
+// Reveal on scroll
+const revEls=document.querySelectorAll('.reveal');
+new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.12}).observe
+// usar forEach
+;revEls.forEach(el=>new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.12}).observe(el));
+
+// Botones pedir
+document.querySelectorAll('.btn-buy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const nombre=btn.closest('.prod-card').querySelector('.prod-name').textContent;
+    window.open(`https://wa.me/527410000000?text=${encodeURIComponent('Hola! Me interesa: '+nombre)}`,'_blank');
+  });
+});
+
+// Enviar
+document.getElementById('sendBtn').addEventListener('click',()=>{
+  const n=document.getElementById('fn').value;
+  const t=document.getElementById('ft').value;
+  const m=document.getElementById('fm').value;
+  if(!n||!m){alert('Por favor completa tu nombre y mensaje.');return;}
+  window.open(`https://wa.me/527410000000?text=${encodeURIComponent('Hola! Soy '+n+' ('+t+').\n'+m)}`,'_blank');
+});
 </script>
 </body>
 </html>
