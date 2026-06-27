@@ -30,8 +30,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--txt);o
 .nav-cta:hover{background:var(--miel-d)!important;}
 
 /* HEADER */
-#prod-hero{padding:8rem 2rem 4rem;text-align:center;
+#prod-hero{padding:8rem 2rem 5rem;text-align:center;
   background:linear-gradient(135deg,#1A0C02 0%,#3A1F08 55%,#7A4A00 100%);position:relative;overflow:hidden;}
+.ph-wave{position:absolute;bottom:-1px;left:0;width:100%;height:55px;display:block;z-index:3;}
 .ph-hex{position:absolute;inset:0;opacity:.07;}
 .ph-content{position:relative;z-index:2;max-width:640px;margin:0 auto;}
 .ph-tag{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
@@ -42,21 +43,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--txt);o
 .ph-sub{font-size:clamp(.9rem,2vw,1.1rem);color:rgba(253,246,227,.65);font-weight:300;
   max-width:440px;margin:0 auto;line-height:1.6;}
 
+/* ZONA PRODUCTOS — fondo decorativo */
+#zona-prod{position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(240,168,50,.18) 0%,transparent 32%),
+    radial-gradient(circle at 88% 70%,rgba(200,121,10,.14) 0%,transparent 35%),
+    linear-gradient(180deg,#FBEFCE 0%,#F3E0B8 55%,#EFD9AC 100%);}
+/* panal tenue de fondo */
+#zona-prod .zp-hex{position:absolute;inset:0;opacity:.10;pointer-events:none;z-index:0;}
+/* manchas de goteo de miel decorativas */
+.zp-drip{position:absolute;top:0;width:90px;z-index:0;opacity:.5;pointer-events:none;}
+.zp-drip.d1{left:8%;}
+.zp-drip.d2{right:14%;}
+.zp-drip.d3{left:46%;}
+#zona-prod>*{position:relative;z-index:1;}
+
 /* FILTROS */
-.filtros{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;padding:2.5rem 2rem 0;}
-.filtro{background:transparent;border:1px solid rgba(212,134,10,.4);color:var(--txt2);
-  padding:.5rem 1.3rem;border-radius:2rem;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;
-  letter-spacing:.05em;cursor:pointer;transition:all .25s;}
-.filtro.active,.filtro:hover{background:var(--miel);color:#fff;border-color:var(--miel);}
+.filtros{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;padding:3.5rem 2rem 0;}
+.filtro{background:rgba(255,255,255,.55);backdrop-filter:blur(4px);border:1px solid rgba(212,134,10,.4);
+  color:var(--txt2);padding:.5rem 1.3rem;border-radius:2rem;font-family:'DM Sans',sans-serif;
+  font-size:.8rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .25s;}
+.filtro.active,.filtro:hover{background:var(--miel);color:#fff;border-color:var(--miel);
+  box-shadow:0 4px 14px rgba(200,121,10,.35);}
 
 /* GRID PRODUCTOS */
 #catalogo{padding:3rem 2rem 6rem;max-width:1150px;margin:0 auto;}
 .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.8rem;}
 .prod-card{background:#fff;border:1px solid rgba(212,134,10,.15);border-radius:.6rem;overflow:hidden;
-  transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;}
-.prod-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(122,74,0,.15);}
+  transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;
+  box-shadow:0 6px 22px rgba(122,74,0,.10);}
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(122,74,0,.22);}
 .prod-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden;}
-.prod-img::before{content:'';position:absolute;inset:0;opacity:.4;}
+.prod-img::before{content:'';position:absolute;inset:0;opacity:.5;}
+.prod-img::after{content:'';position:absolute;inset:0;opacity:.18;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='24' viewBox='0 0 28 24'%3E%3Cpolygon points='14,1 26,7 26,17 14,23 2,17 2,7' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E");}
+.prod-img>.emoji{position:relative;z-index:1;filter:drop-shadow(0 4px 8px rgba(74,40,0,.25));}
 .pi-1::before{background:linear-gradient(135deg,#D4860A,#F0A832);}
 .pi-2::before{background:linear-gradient(135deg,#8B5200,#D4860A);}
 .pi-3::before{background:linear-gradient(135deg,#3A5A2A,#6B8B3F);}
@@ -119,10 +140,6 @@ footer{background:var(--negro);padding:2.5rem 2rem;text-align:center;border-top:
     Miel Real
   </a>
   <ul class="nav-links">
-    <li><a href="index.html#nosotros">Quiénes somos</a></li>
-    <li><a href="index.html#info">Información</a></li>
-    <li><a href="index.html#ubicacion">Ubicación</a></li>
-    <li><a href="index.html#contacto">Contacto</a></li>
     <li><a href="index.html" class="nav-cta">Inicio</a></li>
   </ul>
 </nav>
@@ -140,14 +157,43 @@ footer{background:var(--negro);padding:2.5rem 2rem;text-align:center;border-top:
     <h1 class="ph-title">Nuestros <em>productos</em></h1>
     <p class="ph-sub">Miel pura, panal, propóleo y más. Todo natural, cosechado con respeto a nuestras abejas.</p>
   </div>
+  <svg class="ph-wave" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 40 Q 180 70 360 50 T 720 45 T 1080 50 T 1440 40 V70 H0 Z" fill="#FBEFCE"/>
+  </svg>
 </section>
 
-<!-- FILTROS -->
-<div class="filtros">
+<!-- ZONA PRODUCTOS con fondo decorativo -->
+<div id="zona-prod">
+
+  <!-- patrón de panal de fondo -->
+  <svg class="zp-hex" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="zph" x="0" y="0" width="26" height="23" patternUnits="userSpaceOnUse">
+      <polygon points="13,1 24,7 24,17 13,23 2,17 2,7" fill="none" stroke="#C8790A" stroke-width="1"/>
+    </pattern></defs>
+    <rect width="200" height="200" fill="url(#zph)"/>
+  </svg>
+
+  <!-- goteos de miel decorativos -->
+  <svg class="zp-drip d1" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0 H90 V55 Q90 78 72 78 Q56 78 56 96 Q56 112 45 112 Q34 112 34 96 Q34 80 22 80 Q0 80 0 52 Z" fill="#F0A832"/>
+    <circle cx="45" cy="116" r="4" fill="#F0A832"/>
+  </svg>
+  <svg class="zp-drip d2" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0 H90 V48 Q90 70 74 70 Q60 70 60 88 Q60 100 50 100 Q40 100 40 86 Q40 72 26 72 Q0 72 0 46 Z" fill="#D4860A"/>
+    <circle cx="50" cy="104" r="3.5" fill="#D4860A"/>
+  </svg>
+  <svg class="zp-drip d3" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0 H90 V40 Q90 60 76 60 Q64 60 64 76 Q64 86 55 86 Q46 86 46 74 Q46 62 33 62 Q0 62 0 38 Z" fill="#EFC36A"/>
+    <circle cx="55" cy="90" r="3" fill="#EFC36A"/>
+  </svg>
+
+  <!-- FILTROS -->
+  <div class="filtros">
   <button class="filtro active" data-cat="todos">Todos</button>
   <button class="filtro" data-cat="miel">Mieles</button>
   <button class="filtro" data-cat="panal">Panal y cera</button>
   <button class="filtro" data-cat="salud">Salud</button>
+  <button class="filtro" data-cat="presentaciones">Presentaciones</button>
 </div>
 
 <!-- CATALOGO -->
@@ -244,8 +290,85 @@ footer{background:var(--negro);padding:2.5rem 2rem;text-align:center;border-top:
       </div>
     </div>
 
+    <div class="prod-card reveal" data-cat="salud">
+      <div class="prod-img pi-5">🌼</div>
+      <div class="prod-body">
+        <div class="prod-cat">Salud</div>
+        <h3 class="prod-name">Polen</h3>
+        <p class="prod-desc">Polen natural recolectado por las abejas. Rico en proteínas, vitaminas y minerales. Energía pura.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$— <small>/ presentación</small></span>
+          <button class="btn-buy" data-prod="Polen">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="presentaciones">
+      <div class="prod-img pi-2"><span class="prod-badge">Mayoreo</span>🛢️</div>
+      <div class="prod-body">
+        <div class="prod-cat">Presentaciones</div>
+        <h3 class="prod-name">Bote de 20 Litros</h3>
+        <p class="prod-desc">Presentación de mayoreo. Ideal para revendedores, restaurantes o consumo familiar grande.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$— <small>/ 20 L</small></span>
+          <button class="btn-buy" data-prod="Miel - Bote de 20 litros">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="presentaciones">
+      <div class="prod-img pi-1">🍯</div>
+      <div class="prod-body">
+        <div class="prod-cat">Presentaciones</div>
+        <h3 class="prod-name">Bote de 1 Litro</h3>
+        <p class="prod-desc">Presentación familiar. Miel pura en envase de 1 litro, perfecta para tener en casa.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$— <small>/ 1 L</small></span>
+          <button class="btn-buy" data-prod="Miel - Bote de 1 litro">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="presentaciones">
+      <div class="prod-img pi-5">🍯</div>
+      <div class="prod-body">
+        <div class="prod-cat">Presentaciones</div>
+        <h3 class="prod-name">Bote de 600 ml</h3>
+        <p class="prod-desc">Presentación mediana. Práctica y del tamaño ideal para el consumo diario.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$— <small>/ 600 ml</small></span>
+          <button class="btn-buy" data-prod="Miel - Bote de 600 ml">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="presentaciones">
+      <div class="prod-img pi-4">🍯</div>
+      <div class="prod-body">
+        <div class="prod-cat">Presentaciones</div>
+        <h3 class="prod-name">Bote de un Cuarto</h3>
+        <p class="prod-desc">Presentación pequeña, ideal para probar nuestra miel o como regalo.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$— <small>/ ¼</small></span>
+          <button class="btn-buy" data-prod="Miel - Bote de un cuarto">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
+
+</div><!-- /zona-prod -->
 
 <!-- CTA FINAL -->
 <section id="cta-final">
