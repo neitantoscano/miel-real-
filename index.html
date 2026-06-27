@@ -3,375 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miel Real — Colmena Artesanal</title>
+<title>Miel Real — Inicio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --miel:#C8790A;
-  --miel-l:#F0A832;
-  --miel-d:#7A4A00;
-  --crema:#FDF6E3;
-  --crema2:#F5EDD5;
-  --madera:#8B5200;
-  --madera-d:#4A2800;
-  --verde:#3A5A2A;
-  --negro:#1A0C02;
-  --txt:#2C1A08;
-  --txt2:#6B4C2A;
+  --miel:#C8790A; --miel-l:#F0A832; --miel-d:#7A4A00;
+  --crema:#FDF6E3; --crema2:#F5EDD5; --madera:#8B5200; --madera-d:#4A2800;
+  --verde:#3A5A2A; --negro:#1A0C02; --txt:#2C1A08; --txt2:#6B4C2A;
 }
 html{scroll-behavior:smooth;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--crema);
-  color:var(--txt);
-  overflow-x:hidden;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--txt);overflow-x:hidden;}
 
-/* ── NAV ── */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.1rem 2.5rem;
-  transition:background .4s,backdrop-filter .4s;
-}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:1.1rem 2.5rem;transition:background .4s,backdrop-filter .4s;}
 #nav.dark{background:rgba(26,12,2,.92);backdrop-filter:blur(14px);}
-.nav-logo{
-  font-family:'Playfair Display',serif;font-size:1.25rem;
-  color:var(--miel-l);text-decoration:none;display:flex;align-items:center;gap:.5rem;
-}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--miel-l);
+  text-decoration:none;display:flex;align-items:center;gap:.5rem;}
 .nav-logo svg{width:28px;height:28px;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{
-  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(253,246,227,.65);text-decoration:none;transition:color .2s;
-}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(253,246,227,.65);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:var(--miel-l);}
+.nav-cta{background:var(--miel)!important;color:#fff!important;padding:.5rem 1.1rem;border-radius:.2rem;}
+.nav-cta:hover{background:var(--miel-d)!important;}
 
-/* ── HERO ── */
-#hero{
-  position:relative;width:100%;height:100vh;
-  background:var(--negro);overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-#hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
-.hero-content{
-  position:relative;z-index:10;text-align:center;padding:2rem;pointer-events:none;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--miel-l);border:1px solid rgba(240,168,50,.35);
-  padding:.35rem 1.1rem;border-radius:2rem;margin-bottom:1.6rem;
-  opacity:0;animation:fadeUp .8s ease forwards .4s;
-}
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3.2rem,9vw,7.5rem);
-  color:#FDF6E3;line-height:1.0;margin-bottom:1rem;
-  opacity:0;animation:fadeUp 1s ease forwards .7s;
-}
+/* HERO */
+#hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;
+  background:linear-gradient(135deg,#1A0C02 0%,#3A1F08 45%,#7A4A00 100%);}
+.hero-hex{position:absolute;inset:0;opacity:.07;}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,168,50,.35) 0%,transparent 70%);
+  top:-10%;right:-10%;filter:blur(40px);}
+.hero-glow2{position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,121,10,.3) 0%,transparent 70%);
+  bottom:-15%;left:-10%;filter:blur(40px);}
+.hero-content{position:relative;z-index:10;padding:2rem;max-width:760px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--miel-l);
+  border:1px solid rgba(240,168,50,.35);padding:.4rem 1.2rem;border-radius:2rem;margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .8s ease forwards .3s;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,9vw,7rem);
+  color:#FDF6E3;line-height:1.0;margin-bottom:1.2rem;opacity:0;animation:fadeUp 1s ease forwards .6s;}
 .hero-title em{color:var(--miel-l);font-style:italic;}
-.hero-sub{
-  font-size:clamp(.9rem,2vw,1.1rem);color:rgba(253,246,227,.6);
-  font-weight:300;letter-spacing:.04em;max-width:400px;margin:0 auto 2.5rem;
-  opacity:0;animation:fadeUp 1s ease forwards 1s;
-}
-.hero-cta{
-  display:inline-block;background:var(--miel);color:#fff;
-  font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
-  text-decoration:none;padding:.85rem 2.2rem;border-radius:.2rem;pointer-events:all;
-  transition:background .3s,transform .2s;
-  opacity:0;animation:fadeUp 1s ease forwards 1.3s;
-}
-.hero-cta:hover{background:var(--miel-d);transform:translateY(-2px);}
-.scroll-hint{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  text-align:center;z-index:10;
-  opacity:0;animation:fadeIn 1s ease forwards 2.2s;
-}
-.scroll-hint span{
-  display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(253,246,227,.35);margin-bottom:.5rem;
-}
-.scroll-line{
-  width:1px;height:38px;
-  background:linear-gradient(to bottom,rgba(240,168,50,.7),transparent);
-  margin:0 auto;animation:pulse 2s ease-in-out infinite;
-}
+.hero-sub{font-size:clamp(.95rem,2vw,1.2rem);color:rgba(253,246,227,.7);font-weight:300;
+  letter-spacing:.03em;max-width:480px;margin:0 auto 2.5rem;line-height:1.6;
+  opacity:0;animation:fadeUp 1s ease forwards .9s;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 1s ease forwards 1.2s;}
+.btn-primary{display:inline-block;background:var(--miel);color:#fff;font-weight:600;font-size:.82rem;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.9rem 2.2rem;
+  border-radius:.2rem;transition:background .3s,transform .2s;}
+.btn-primary:hover{background:var(--miel-l);transform:translateY(-2px);}
+.btn-ghost{display:inline-block;background:transparent;color:#FDF6E3;font-weight:600;font-size:.82rem;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.9rem 2.2rem;
+  border:1px solid rgba(240,168,50,.4);border-radius:.2rem;transition:background .3s,transform .2s;}
+.btn-ghost:hover{background:rgba(240,168,50,.12);transform:translateY(-2px);}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);text-align:center;z-index:10;
+  opacity:0;animation:fadeIn 1s ease forwards 2s;}
+.scroll-hint span{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(253,246,227,.35);margin-bottom:.5rem;}
+.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,rgba(240,168,50,.7),transparent);
+  margin:0 auto;animation:pulse 2s ease-in-out infinite;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{opacity:.8}50%{opacity:.25}}
 
-/* ── STICKY SCROLL SECTION ── */
-#sticky-wrap{
-  position:relative;
-  height:550vh; /* scrolleable area */
-}
-#sticky-scene{
-  position:sticky;top:0;
-  width:100%;height:100vh;
-  background:var(--crema);
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-#hive-canvas{
-  position:absolute;inset:0;width:100%;height:100%;display:block;
-}
-
-/* Labels de componentes */
-.hive-labels{
-  position:absolute;inset:0;pointer-events:none;z-index:5;
-}
-.hlabel{
-  position:absolute;
-  display:flex;align-items:center;gap:.7rem;
-  opacity:0;transition:opacity .5s ease,transform .5s ease;
-  transform:translateX(10px);
-}
-.hlabel.visible{opacity:1;transform:translateX(0);}
-.hlabel-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--miel);flex-shrink:0;
-}
-.hlabel-line{
-  width:40px;height:1px;background:var(--miel);flex-shrink:0;
-}
-.hlabel-text h4{
-  font-family:'Playfair Display',serif;font-size:.95rem;
-  color:var(--txt);margin-bottom:.15rem;
-}
-.hlabel-text p{
-  font-size:.75rem;color:var(--txt2);line-height:1.4;max-width:160px;
-}
-/* posiciones izquierda */
-.hlabel.left{flex-direction:row-reverse;right:auto;}
-.hlabel.left .hlabel-line{order:0;}
-.hlabel.left .hlabel-text{text-align:right;}
-/* posiciones derecha */
-.hlabel.right{left:auto;}
-
-/* Texto lateral izquierdo del sticky */
-.sticky-info{
-  position:absolute;left:4%;top:50%;transform:translateY(-50%);
-  max-width:240px;z-index:6;
-}
-.sticky-info .section-tag{
-  font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--miel);margin-bottom:.6rem;
-}
-.sticky-info h2{
-  font-family:'Playfair Display',serif;font-size:2rem;
-  line-height:1.15;color:var(--txt);margin-bottom:1rem;
-}
-.sticky-info h2 em{color:var(--miel);font-style:italic;}
-.sticky-info p{font-size:.85rem;color:var(--txt2);line-height:1.7;}
-.progress-bar{
-  margin-top:1.5rem;width:100%;height:2px;
-  background:rgba(212,134,10,.15);border-radius:1px;overflow:hidden;
-}
-.progress-fill{
-  height:100%;background:linear-gradient(to right,var(--miel),var(--miel-l));
-  width:0%;transition:width .1s linear;border-radius:1px;
-}
-
-/* ── SEPARADOR CURVO ── */
-.wave-sep{
-  width:100%;height:80px;background:var(--crema);
-  position:relative;margin-top:-2px;
-}
-.wave-sep svg{width:100%;height:100%;}
-
-/* ── SECCIONES NORMALES ── */
-.section-tag{
-  font-size:.65rem;font-weight:600;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--miel);margin-bottom:.6rem;
-}
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,4.5vw,3.2rem);
-  line-height:1.1;margin-bottom:1.5rem;
-}
-.section-title em{color:var(--miel);font-style:italic;}
-
-/* ── TRUST BAR ── */
-#trust{
-  background:var(--miel);padding:1.4rem 2rem;
-  display:flex;align-items:center;justify-content:center;
-  gap:3rem;flex-wrap:wrap;
-}
-.trust-item{
-  display:flex;align-items:center;gap:.6rem;
-  color:#fff;font-size:.8rem;font-weight:500;
-  letter-spacing:.06em;
-}
+/* TRUST BAR */
+#trust{background:var(--miel);padding:1.4rem 2rem;display:flex;align-items:center;
+  justify-content:center;gap:3rem;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:.6rem;color:#fff;font-size:.8rem;
+  font-weight:500;letter-spacing:.06em;}
 .trust-item svg{width:18px;height:18px;opacity:.9;}
 
-/* ── HISTORIA ── */
-#historia{
-  padding:6rem 2rem;
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
-}
-.historia-visual{
-  position:relative;border-radius:.4rem;overflow:hidden;
-  aspect-ratio:4/5;
-  background:linear-gradient(135deg,#6B3F1C,#D4860A);
-  display:flex;align-items:center;justify-content:center;
-}
-.historia-visual .hex-bg{
-  position:absolute;inset:0;opacity:.1;
-}
-.historia-visual .center-emoji{font-size:5.5rem;z-index:1;}
-.historia-text p{font-size:1rem;line-height:1.85;color:var(--txt2);margin-bottom:1.2rem;}
-.stats-row{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
-  margin-top:2rem;padding-top:2rem;
-  border-top:1px solid rgba(212,134,10,.2);
-}
+/* SECCIONES */
+.section-tag{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--miel);margin-bottom:.6rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);
+  line-height:1.1;margin-bottom:1.5rem;}
+.section-title em{color:var(--miel);font-style:italic;}
+
+/* QUIENES SOMOS */
+#nosotros{padding:6rem 2rem;max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.nosotros-visual{position:relative;border-radius:.5rem;overflow:hidden;aspect-ratio:4/5;
+  background:linear-gradient(135deg,#6B3F1C,#D4860A);display:flex;align-items:center;justify-content:center;}
+.nosotros-visual .hex-bg{position:absolute;inset:0;opacity:.12;}
+.nosotros-visual .center-emoji{font-size:5.5rem;z-index:1;}
+.nosotros-text p{font-size:1rem;line-height:1.85;color:var(--txt2);margin-bottom:1.2rem;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;
+  padding-top:2rem;border-top:1px solid rgba(212,134,10,.2);}
 .stat{text-align:center;}
-.stat-n{
-  font-family:'Playfair Display',serif;font-size:2rem;
-  color:var(--miel);display:block;
-}
+.stat-n{font-family:'Playfair Display',serif;font-size:2rem;color:var(--miel);display:block;}
 .stat-l{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt2);}
 
-/* ── PRODUCTOS ── */
-#productos{background:var(--negro);padding:6rem 2rem;}
-.productos-inner{max-width:1100px;margin:0 auto;}
-.prod-header{text-align:center;margin-bottom:3.5rem;}
-.prod-header .section-title{color:var(--crema);}
-.prod-header .section-tag{color:var(--miel-l);}
-.prod-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:1.5rem;
-}
-.prod-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(212,134,10,.18);
-  border-radius:.4rem;overflow:hidden;
-  transition:transform .3s,border-color .3s;cursor:pointer;
-}
-.prod-card:hover{transform:translateY(-5px);border-color:rgba(212,134,10,.55);}
-.prod-img{
-  height:180px;display:flex;align-items:center;
-  justify-content:center;font-size:3.5rem;position:relative;
-}
-.prod-img::before{content:'';position:absolute;inset:0;opacity:.35;}
-.pi-1::before{background:linear-gradient(135deg,#D4860A,#F0A832);}
-.pi-2::before{background:linear-gradient(135deg,#8B5200,#D4860A);}
-.pi-3::before{background:linear-gradient(135deg,#3A5A2A,#6B8B3F);}
-.pi-4::before{background:linear-gradient(135deg,#D4860A,#FDF6E3);}
-.prod-body{padding:1.3rem;}
-.prod-name{
-  font-family:'Playfair Display',serif;font-size:1.2rem;
-  color:var(--crema);margin-bottom:.4rem;
-}
-.prod-desc{font-size:.83rem;color:rgba(253,246,227,.5);line-height:1.6;margin-bottom:1.1rem;}
-.prod-foot{display:flex;align-items:center;justify-content:space-between;}
-.prod-price{
-  font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--miel-l);
-}
-.btn-buy{
-  background:var(--miel);color:#fff;border:none;
-  padding:.5rem 1.1rem;border-radius:.2rem;
-  font-size:.75rem;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;cursor:pointer;transition:background .2s;
-}
-.btn-buy:hover{background:var(--miel-d);}
+/* INFO / VALORES */
+#info{background:var(--negro);padding:6rem 2rem;}
+.info-inner{max-width:1100px;margin:0 auto;}
+.info-header{text-align:center;margin-bottom:3.5rem;}
+.info-header .section-title{color:var(--crema);}
+.info-header .section-tag{color:var(--miel-l);}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;}
+.info-card{background:rgba(255,255,255,.04);border:1px solid rgba(212,134,10,.18);
+  border-radius:.5rem;padding:2rem 1.5rem;text-align:center;transition:transform .3s,border-color .3s;}
+.info-card:hover{transform:translateY(-5px);border-color:rgba(212,134,10,.5);}
+.info-ico{width:3.5rem;height:3.5rem;border-radius:50%;margin:0 auto 1.2rem;
+  background:linear-gradient(135deg,var(--miel),var(--miel-l));display:flex;align-items:center;
+  justify-content:center;font-size:1.5rem;box-shadow:0 4px 18px rgba(212,134,10,.3);}
+.info-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--crema);margin-bottom:.6rem;}
+.info-card p{font-size:.85rem;color:rgba(253,246,227,.55);line-height:1.6;}
 
-/* ── PROCESO ── */
-#proceso{padding:6rem 2rem;background:var(--crema2);}
-.proceso-inner{max-width:1000px;margin:0 auto;}
-.proceso-header{text-align:center;margin-bottom:4rem;}
-.pasos{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2rem;
-  position:relative;
-}
-.pasos::before{
-  content:'';position:absolute;
-  top:2.2rem;left:8%;right:8%;height:1px;
-  background:linear-gradient(to right,transparent,var(--miel),transparent);
-}
-.paso{text-align:center;padding:1rem;}
-.paso-ico{
-  width:3.8rem;height:3.8rem;border-radius:50%;
-  background:linear-gradient(135deg,var(--miel),var(--miel-l));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;margin:0 auto 1rem;
-  position:relative;z-index:1;
-  box-shadow:0 4px 18px rgba(212,134,10,.3);
-}
-.paso h3{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:.4rem;}
-.paso p{font-size:.82rem;color:var(--txt2);line-height:1.6;}
+/* UBICACION */
+#ubicacion{padding:6rem 2rem;background:var(--crema2);}
+.ubi-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.ubi-text .section-title{margin-bottom:1rem;}
+.ubi-text p{font-size:1rem;line-height:1.8;color:var(--txt2);margin-bottom:1.5rem;}
+.ubi-detail{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1.1rem;}
+.ubi-detail .dico{width:2.4rem;height:2.4rem;border-radius:.4rem;background:var(--miel);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ubi-detail h4{font-size:.95rem;color:var(--txt);margin-bottom:.15rem;}
+.ubi-detail p{font-size:.88rem;color:var(--txt2);margin:0;line-height:1.5;}
+.ubi-map{border-radius:.5rem;overflow:hidden;border:1px solid rgba(212,134,10,.25);
+  box-shadow:0 8px 30px rgba(74,40,0,.12);aspect-ratio:4/3;}
+.ubi-map iframe{width:100%;height:100%;border:0;display:block;}
 
-/* ── CONTACTO ── */
-#contacto{
-  background:var(--madera);padding:6rem 2rem;
-  position:relative;overflow:hidden;
-}
-#contacto::before{
-  content:'';position:absolute;inset:0;
+/* CONTACTO */
+#contacto{background:var(--madera);padding:6rem 2rem;position:relative;overflow:hidden;}
+#contacto::before{content:'';position:absolute;inset:0;
   background:radial-gradient(circle at 20% 50%,rgba(212,134,10,.15) 0%,transparent 60%),
-             radial-gradient(circle at 80% 30%,rgba(240,168,50,.1) 0%,transparent 50%);
-}
+            radial-gradient(circle at 80% 30%,rgba(240,168,50,.1) 0%,transparent 50%);}
 .contacto-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1;}
 .contacto-inner .section-title{color:var(--crema);}
 .contacto-inner .section-tag{color:var(--miel-l);}
 .contacto-inner>p{color:rgba(253,246,227,.65);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem;}
-.contact-cards{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:1rem;margin-bottom:2.5rem;
-}
-.cc{
-  background:rgba(255,255,255,.07);border:1px solid rgba(240,168,50,.2);
-  border-radius:.4rem;padding:1.3rem;text-align:center;transition:background .3s;
-}
+.contact-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2.5rem;}
+.cc{background:rgba(255,255,255,.07);border:1px solid rgba(240,168,50,.2);border-radius:.5rem;
+  padding:1.5rem 1.2rem;text-align:center;transition:background .3s;text-decoration:none;display:block;}
 .cc:hover{background:rgba(255,255,255,.12);}
-.cc .ic{font-size:1.6rem;margin-bottom:.6rem;}
-.cc h4{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--crema);margin-bottom:.2rem;}
+.cc .ic{font-size:1.7rem;margin-bottom:.7rem;}
+.cc h4{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--crema);margin-bottom:.25rem;}
 .cc p{font-size:.8rem;color:rgba(253,246,227,.55);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;}
-.ff{
-  background:rgba(255,255,255,.08);border:1px solid rgba(240,168,50,.22);
-  border-radius:.3rem;padding:.85rem 1rem;
-  color:var(--crema);font-family:'DM Sans',sans-serif;font-size:.88rem;
-  width:100%;outline:none;transition:border-color .2s;
-}
+.ff{background:rgba(255,255,255,.08);border:1px solid rgba(240,168,50,.22);border-radius:.3rem;
+  padding:.85rem 1rem;color:var(--crema);font-family:'DM Sans',sans-serif;font-size:.88rem;
+  width:100%;outline:none;transition:border-color .2s;}
 .ff::placeholder{color:rgba(253,246,227,.3);}
 .ff:focus{border-color:rgba(240,168,50,.65);}
 textarea.ff{resize:vertical;min-height:110px;}
-.btn-send{
-  background:var(--miel-l);color:var(--madera-d);border:none;
-  padding:.85rem 2.2rem;border-radius:.2rem;
-  font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
-  transition:background .2s,transform .2s;margin-top:.5rem;
-}
+.btn-send{background:var(--miel-l);color:var(--madera-d);border:none;padding:.9rem 2.2rem;
+  border-radius:.2rem;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .2s;margin-top:.5rem;}
 .btn-send:hover{background:var(--miel);transform:translateY(-2px);}
 
-/* ── FOOTER ── */
-footer{
-  background:var(--negro);padding:2.5rem 2rem;text-align:center;
-  border-top:1px solid rgba(212,134,10,.12);
-}
+/* CTA PRODUCTOS */
+#cta-prod{padding:5rem 2rem;text-align:center;background:var(--crema);}
+.cta-prod-inner{max-width:600px;margin:0 auto;}
+.cta-prod-inner .section-title{margin-bottom:1rem;}
+.cta-prod-inner p{font-size:1rem;color:var(--txt2);line-height:1.7;margin-bottom:2rem;}
+
+/* FOOTER */
+footer{background:var(--negro);padding:2.5rem 2rem;text-align:center;border-top:1px solid rgba(212,134,10,.12);}
 .foot-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--miel-l);margin-bottom:.5rem;}
+.foot-links{display:flex;gap:1.5rem;justify-content:center;margin:1rem 0;flex-wrap:wrap;}
+.foot-links a{font-size:.78rem;color:rgba(253,246,227,.5);text-decoration:none;transition:color .2s;}
+.foot-links a:hover{color:var(--miel-l);}
 .foot-sub{font-size:.72rem;color:rgba(253,246,227,.28);letter-spacing:.08em;}
 
-/* ── REVEAL ── */
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.vis{opacity:1;transform:translateY(0);}
 
-/* ── RESPONSIVE ── */
 @media(max-width:768px){
-  #historia{grid-template-columns:1fr;gap:2.5rem;}
+  #nosotros{grid-template-columns:1fr;gap:2.5rem;}
+  .ubi-inner{grid-template-columns:1fr;gap:2.5rem;}
   .form-row{grid-template-columns:1fr;}
   .nav-links{display:none;}
-  .pasos::before{display:none;}
-  .sticky-info{left:2%;max-width:160px;}
-  .sticky-info h2{font-size:1.3rem;}
 }
 </style>
 </head>
@@ -379,7 +188,7 @@ footer{
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
       <polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="none" stroke="#F0A832" stroke-width="1.5"/>
       <polygon points="14,7 21,11 21,19 14,23 7,19 7,11" fill="rgba(240,168,50,0.2)" stroke="#F0A832" stroke-width="1"/>
@@ -387,21 +196,32 @@ footer{
     Miel Real
   </a>
   <ul class="nav-links">
-    <li><a href="#historia">Nosotros</a></li>
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#nosotros">Quiénes somos</a></li>
+    <li><a href="#info">Información</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
     <li><a href="#contacto">Contacto</a></li>
+    <li><a href="productos.html" class="nav-cta">Productos</a></li>
   </ul>
 </nav>
 
-<!-- ══════════════ HERO ══════════════ -->
+<!-- HERO -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
+  <svg class="hero-hex" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="hh" x="0" y="0" width="24" height="21" patternUnits="userSpaceOnUse">
+      <polygon points="12,1 22,6 22,16 12,21 2,16 2,6" fill="none" stroke="#F0A832" stroke-width="1"/>
+    </pattern></defs>
+    <rect width="200" height="200" fill="url(#hh)"/>
+  </svg>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
   <div class="hero-content">
     <div class="hero-badge">🐝 100% Natural · Sin conservadores · Guerrero, México</div>
     <h1 class="hero-title">Miel <em>Real</em></h1>
-    <p class="hero-sub">Directamente de nuestras colmenas artesanales a tu mesa.</p>
-    <a href="#sticky-wrap" class="hero-cta">Conocer la colmena</a>
+    <p class="hero-sub">Miel pura cosechada con amor, directamente de nuestras colmenas artesanales a tu mesa.</p>
+    <div class="hero-btns">
+      <a href="productos.html" class="btn-primary">Ver productos</a>
+      <a href="#nosotros" class="btn-ghost">Conócenos</a>
+    </div>
   </div>
   <div class="scroll-hint">
     <span>Scroll</span>
@@ -409,89 +229,7 @@ footer{
   </div>
 </section>
 
-<!-- ══════════════ STICKY SCROLL ══════════════ -->
-<div id="sticky-wrap">
-  <div id="sticky-scene">
-    <canvas id="hive-canvas"></canvas>
-
-    <!-- Info lateral izquierda -->
-    <div class="sticky-info">
-      <div class="section-tag">Conoce tu colmena</div>
-      <h2>Así se <em>construye</em> nuestra colmena</h2>
-      <p>Cada parte cumple una función esencial para el bienestar de nuestras abejas y la calidad de nuestra miel.</p>
-      <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
-    </div>
-
-    <!-- Etiquetas de componentes (aparecen con el scroll) -->
-    <div class="hive-labels" id="hlabels">
-
-      <!-- IZQUIERDA -->
-      <div class="hlabel left" id="lbl-tapa"
-           style="top:12%;right:55%;">
-        <div class="hlabel-text">
-          <h4>Tapa exterior</h4>
-          <p>Protege la colmena de la lluvia y el sol. Ventila internamente.</p>
-        </div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-dot"></div>
-      </div>
-
-      <div class="hlabel left" id="lbl-alza"
-           style="top:30%;right:55%;">
-        <div class="hlabel-text">
-          <h4>Alza melaria</h4>
-          <p>Las abejas almacenan aquí la miel que luego cosechamos.</p>
-        </div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-dot"></div>
-      </div>
-
-      <div class="hlabel left" id="lbl-exc"
-           style="top:50%;right:55%;">
-        <div class="hlabel-text">
-          <h4>Separador de reinas</h4>
-          <p>Impide que la reina suba a las alzas melarias.</p>
-        </div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-dot"></div>
-      </div>
-
-      <!-- DERECHA -->
-      <div class="hlabel right" id="lbl-panales"
-           style="top:22%;left:57%;">
-        <div class="hlabel-dot"></div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-text">
-          <h4>Los panales</h4>
-          <p>Las abejas almacenan la miel y el polen, y cuidan a sus crías.</p>
-        </div>
-      </div>
-
-      <div class="hlabel right" id="lbl-camara"
-           style="top:43%;left:57%;">
-        <div class="hlabel-dot"></div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-text">
-          <h4>Cámara de cría</h4>
-          <p>Aquí la reina pone los huevos y nacen las nuevas abejas.</p>
-        </div>
-      </div>
-
-      <div class="hlabel right" id="lbl-base"
-           style="top:70%;left:57%;">
-        <div class="hlabel-dot"></div>
-        <div class="hlabel-line"></div>
-        <div class="hlabel-text">
-          <h4>Base / Piso sanitario</h4>
-          <p>Permite ventilación y mantiene la colmena limpia y estable.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ TRUST BAR ══════════════ -->
+<!-- TRUST BAR -->
 <div id="trust">
   <div class="trust-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -511,10 +249,10 @@ footer{
   </div>
 </div>
 
-<!-- ══════════════ HISTORIA ══════════════ -->
+<!-- QUIENES SOMOS -->
 <section>
-  <div id="historia">
-    <div class="historia-visual reveal">
+  <div id="nosotros">
+    <div class="nosotros-visual reveal">
       <svg class="hex-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <defs><pattern id="hx" x="0" y="0" width="30" height="26" patternUnits="userSpaceOnUse">
           <polygon points="15,1 28,8 28,22 15,29 2,22 2,8" fill="none" stroke="#F0A832" stroke-width="1"/>
@@ -523,8 +261,8 @@ footer{
       </svg>
       <div class="center-emoji">🍯</div>
     </div>
-    <div class="historia-text reveal">
-      <div class="section-tag">Nuestra historia</div>
+    <div class="nosotros-text reveal">
+      <div class="section-tag">Quiénes somos</div>
       <h2 class="section-title">Tres generaciones<br><em>de tradición</em></h2>
       <p>Todo comenzó con un sueño simple: criar abejas con respeto y cosechar la miel que la naturaleza nos regala. Hoy, con más de 20 años de experiencia, seguimos fieles a esa misión.</p>
       <p>Nuestras colmenas de madera artesanal están ubicadas en campos libres de agroquímicos, rodeadas de flores silvestres que dan a nuestra miel un sabor único e incomparable.</p>
@@ -537,77 +275,77 @@ footer{
   </div>
 </section>
 
-<!-- ══════════════ PRODUCTOS ══════════════ -->
-<section id="productos">
-  <div class="productos-inner">
-    <div class="prod-header reveal">
-      <div class="section-tag">Lo que ofrecemos</div>
-      <h2 class="section-title">Nuestros <em>productos</em></h2>
+<!-- INFO / VALORES -->
+<section id="info">
+  <div class="info-inner">
+    <div class="info-header reveal">
+      <div class="section-tag">Información</div>
+      <h2 class="section-title">Por qué nuestra <em>miel</em></h2>
     </div>
-    <div class="prod-grid reveal">
-      <div class="prod-card">
-        <div class="prod-img pi-1">🍯</div>
-        <div class="prod-body">
-          <h3 class="prod-name">Miel Pura de Abeja</h3>
-          <p class="prod-desc">Cosechada directamente del panal. Dorada, espesa y llena de nutrientes naturales. Sin mezclas.</p>
-          <div class="prod-foot"><span class="prod-price">$85</span><button class="btn-buy">Pedir</button></div>
-        </div>
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <div class="info-ico">🌿</div>
+        <h3>100% Natural</h3>
+        <p>Sin aditivos, sin conservadores ni azúcares añadidos. Pura como sale del panal.</p>
       </div>
-      <div class="prod-card">
-        <div class="prod-img pi-2">🧇</div>
-        <div class="prod-body">
-          <h3 class="prod-name">Panal en Cera</h3>
-          <p class="prod-desc">Panal completo con cera natural de abeja. La forma más pura de disfrutar la miel.</p>
-          <div class="prod-foot"><span class="prod-price">$120</span><button class="btn-buy">Pedir</button></div>
-        </div>
+      <div class="info-card">
+        <div class="info-ico">🐝</div>
+        <h3>Apicultura responsable</h3>
+        <p>Cuidamos la salud de nuestras abejas y el equilibrio del medio ambiente.</p>
       </div>
-      <div class="prod-card">
-        <div class="prod-img pi-3">🌿</div>
-        <div class="prod-body">
-          <h3 class="prod-name">Propóleo Natural</h3>
-          <p class="prod-desc">Extracto puro reconocido por sus propiedades antibacterianas y su poder inmunológico.</p>
-          <div class="prod-foot"><span class="prod-price">$95</span><button class="btn-buy">Pedir</button></div>
-        </div>
+      <div class="info-card">
+        <div class="info-ico">🍯</div>
+        <h3>Cosecha artesanal</h3>
+        <p>Extraemos la miel a mano, sin calor excesivo, para preservar sus nutrientes.</p>
       </div>
-      <div class="prod-card">
-        <div class="prod-img pi-4">✨</div>
-        <div class="prod-body">
-          <h3 class="prod-name">Jalea Real</h3>
-          <p class="prod-desc">El superalimento de las abejas. Recolectada con cuidado para conservar todas sus propiedades.</p>
-          <div class="prod-foot"><span class="prod-price">$180</span><button class="btn-buy">Pedir</button></div>
-        </div>
+      <div class="info-card">
+        <div class="info-ico">🚚</div>
+        <h3>Envíos a tu hogar</h3>
+        <p>Recibe nuestros productos frescos directamente en la puerta de tu casa.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════ PROCESO ══════════════ -->
-<section id="proceso">
-  <div class="proceso-inner">
-    <div class="proceso-header reveal">
-      <div class="section-tag">Cómo lo hacemos</div>
-      <h2 class="section-title">De la colmena <em>a tu mesa</em></h2>
+<!-- UBICACION -->
+<section id="ubicacion">
+  <div class="ubi-inner">
+    <div class="ubi-text reveal">
+      <div class="section-tag">Dónde estamos</div>
+      <h2 class="section-title">Nuestra <em>ubicación</em></h2>
+      <p>Nos encuentras en el corazón de Guerrero, México. Visítanos o contáctanos para coordinar tu pedido.</p>
+      <div class="ubi-detail">
+        <div class="dico">📍</div>
+        <div><h4>Dirección</h4><p>Ometepec, Guerrero, México</p></div>
+      </div>
+      <div class="ubi-detail">
+        <div class="dico">🕒</div>
+        <div><h4>Horario</h4><p>Lunes a Sábado · 9:00 AM – 6:00 PM</p></div>
+      </div>
+      <div class="ubi-detail">
+        <div class="dico">📱</div>
+        <div><h4>WhatsApp</h4><p>+52 741 000 0000</p></div>
+      </div>
     </div>
-    <div class="pasos reveal">
-      <div class="paso"><div class="paso-ico">🌸</div><h3>Polinización</h3><p>Las abejas recolectan néctar de flores silvestres en campos naturales.</p></div>
-      <div class="paso"><div class="paso-ico">🏡</div><h3>La colmena</h3><p>Producen la miel en colmenas artesanales donde madura de forma natural.</p></div>
-      <div class="paso"><div class="paso-ico">🔍</div><h3>Inspección</h3><p>Revisamos cada colmena para garantizar la salud de las abejas.</p></div>
-      <div class="paso"><div class="paso-ico">🪣</div><h3>Cosecha</h3><p>Extraemos la miel manualmente sin calor excesivo para preservar nutrientes.</p></div>
-      <div class="paso"><div class="paso-ico">🍯</div><h3>Envasado</h3><p>Se filtra suavemente y se envasa en vidrio para conservar su frescura.</p></div>
+    <div class="ubi-map reveal">
+      <iframe
+        src="https://www.google.com/maps?q=Ometepec,Guerrero,Mexico&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación Miel Real"></iframe>
     </div>
   </div>
 </section>
 
-<!-- ══════════════ CONTACTO ══════════════ -->
+<!-- CONTACTO -->
 <section id="contacto">
   <div class="contacto-inner">
     <div class="section-tag reveal">Contáctanos</div>
     <h2 class="section-title reveal">Hablemos sobre<br><em>nuestra miel</em></h2>
-    <p class="reveal">¿Quieres hacer un pedido o tienes preguntas? Estamos para atenderte.</p>
+    <p class="reveal">¿Quieres hacer un pedido o tienes preguntas? Estamos para atenderte con gusto.</p>
     <div class="contact-cards reveal">
-      <div class="cc"><div class="ic">📱</div><h4>WhatsApp</h4><p>+52 741 000 0000</p></div>
+      <a class="cc" href="https://wa.me/527410000000" target="_blank"><div class="ic">📱</div><h4>WhatsApp</h4><p>+52 741 000 0000</p></a>
+      <a class="cc" href="mailto:miel@ejemplo.com"><div class="ic">📧</div><h4>Correo</h4><p>miel@ejemplo.com</p></a>
       <div class="cc"><div class="ic">📍</div><h4>Ubicación</h4><p>Guerrero, México</p></div>
-      <div class="cc"><div class="ic">📧</div><h4>Correo</h4><p>miel@ejemplo.com</p></div>
     </div>
     <div class="reveal">
       <div class="form-row">
@@ -620,338 +358,45 @@ footer{
   </div>
 </section>
 
+<!-- CTA PRODUCTOS -->
+<section id="cta-prod">
+  <div class="cta-prod-inner reveal">
+    <div class="section-tag" style="text-align:center;">Catálogo</div>
+    <h2 class="section-title">¿Listo para <em>endulzar</em> tu día?</h2>
+    <p>Explora nuestra selección de miel pura, panal, propóleo y jalea real. Haz tu pedido en segundos.</p>
+    <a href="productos.html" class="btn-primary">Ver todos los productos</a>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">🐝 Miel Real</div>
+  <div class="foot-links">
+    <a href="#nosotros">Quiénes somos</a>
+    <a href="#info">Información</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#contacto">Contacto</a>
+    <a href="productos.html">Productos</a>
+  </div>
   <div class="foot-sub">© 2025 · Hecho con amor y cera de abeja · Guerrero, México</div>
 </footer>
 
-<!-- THREE.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ════════════════════════════════════════════════════════════════
-//  HERO CANVAS — colmena armada con partículas
-// ════════════════════════════════════════════════════════════════
-(function(){
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x1A0C02,.04);
-
-  const camera = new THREE.PerspectiveCamera(42,1,.1,200);
-  camera.position.set(0,1.5,13);
-
-  function resize(){
-    const w=canvas.parentElement.clientWidth,h=canvas.parentElement.clientHeight;
-    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
-  }
-  resize();window.addEventListener('resize',resize);
-
-  scene.add(new THREE.AmbientLight(0x8B5200,.7));
-  const sun=new THREE.DirectionalLight(0xF0A832,2);sun.position.set(5,10,8);scene.add(sun);
-  const rim=new THREE.PointLight(0xD4860A,1.3,25);rim.position.set(-5,3,-3);scene.add(rim);
-
-  // Partículas
-  const pg=new THREE.BufferGeometry();
-  const pc=150,pp=new Float32Array(pc*3),ph=new Float32Array(pc);
-  for(let i=0;i<pc;i++){pp[i*3]=(Math.random()-.5)*22;pp[i*3+1]=(Math.random()-.5)*13;pp[i*3+2]=(Math.random()-.5)*13-2;ph[i]=Math.random()*Math.PI*2;}
-  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
-  const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xF0A832,size:.07,transparent:true,opacity:.55}));
-  scene.add(pts);
-
-  // Materiales
-  const mWD=new THREE.MeshStandardMaterial({color:0x5C3010,roughness:.82,metalness:.05});
-  const mWM=new THREE.MeshStandardMaterial({color:0x7A4520,roughness:.72,metalness:.06});
-  const mWL=new THREE.MeshStandardMaterial({color:0xA0652A,roughness:.62,metalness:.09});
-  const mHo=new THREE.MeshStandardMaterial({color:0xD48B0A,roughness:.28,metalness:.22,emissive:0x6B3000,emissiveIntensity:.18});
-  const mFr=new THREE.MeshStandardMaterial({color:0x8B5200,roughness:.7,metalness:.1});
-
-  function box(w,h,d,m){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);}
-
-  const hive=new THREE.Group();scene.add(hive);
-  const ld=[
-    {w:3.2,h:.55,d:2.2,m:mWD},{w:3.0,h:.75,d:2.0,m:mWM},
-    {w:3.0,h:.75,d:2.0,m:mWL},{w:3.0,h:.45,d:2.0,m:mWM},
-    {w:3.0,h:.85,d:2.0,m:mWL},{w:3.0,h:.85,d:2.0,m:mWM},
-    {w:3.2,h:.35,d:2.2,m:mWD}
-  ];
-  let yo=0;
-  ld.forEach((l,i)=>{
-    const g=new THREE.Group();
-    g.add(box(l.w,l.h,l.d,l.m));
-    if(i>=1&&i<=5&&i!==3){
-      for(let f=0;f<4;f++){const fr=box(.04,l.h*.82,l.d*.86,mFr);fr.position.x=-.55+f*.37;g.add(fr);}
-      for(let f=0;f<3;f++){const ho=box(.28,l.h*.72,l.d*.80,mHo);ho.position.x=-.37+f*.37;g.add(ho);}
-    }
-    if(i===6){
-      [[-.7,.26,.55],[.7,.26,.55],[-.7,.26,-.55],[.7,.26,-.55]].forEach(([x,y,z],j)=>{
-        const r=box(3.4,.14,1.05,mWD);r.rotation.z=j%2===0?Math.PI*.11:-Math.PI*.11;r.position.set(x,y,z);g.add(r);
-      });
-    }
-    yo+=l.h;g.position.y=yo-l.h/2-2.4;hive.add(g);
-  });
-  [-1.2,1.2].forEach(x=>[-0.65,0.65].forEach(z=>{const leg=box(.11,1.1,.11,mWD);leg.position.set(x,-3.0,z);hive.add(leg);}));
-
-  let t=0;
-  const clock=new THREE.Clock();
-  (function animate(){
-    requestAnimationFrame(animate);
-    t+=clock.getDelta();
-    hive.rotation.y=Math.sin(t*.28)*.18;
-    rim.intensity=1.1+Math.sin(t*1.1)*.2;
-    const p=pg.attributes.position.array;
-    for(let i=0;i<pc;i++){p[i*3+1]+=Math.sin(t+ph[i])*.003;p[i*3]+=Math.cos(t*.5+ph[i])*.002;}
-    pg.attributes.position.needsUpdate=true;
-    renderer.render(scene,camera);
-  })();
-})();
-
-// ════════════════════════════════════════════════════════════════
-//  HIVE CANVAS — scroll-driven explosion
-// ════════════════════════════════════════════════════════════════
-(function(){
-  const canvas=document.getElementById('hive-canvas');
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.shadowMap.enabled=true;
-
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(38,1,.1,200);
-  camera.position.set(2,2,12);
-  camera.lookAt(0,0,0);
-
-  function resize(){
-    const el=document.getElementById('sticky-scene');
-    const w=el.clientWidth,h=el.clientHeight;
-    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
-  }
-  resize();window.addEventListener('resize',resize);
-
-  // Luces cálidas
-  scene.add(new THREE.AmbientLight(0xFFF5CC,.9));
-  const key=new THREE.DirectionalLight(0xF0A832,2.2);key.position.set(6,10,8);key.castShadow=true;scene.add(key);
-  const fill=new THREE.PointLight(0xFFE4A0,.8,30);fill.position.set(-6,2,5);scene.add(fill);
-  const back=new THREE.PointLight(0xD4860A,.6,25);back.position.set(0,-3,-5);scene.add(back);
-
-  // Materiales con más detalle
-  const mats={
-    dark: new THREE.MeshStandardMaterial({color:0x5C3010,roughness:.88,metalness:.04}),
-    mid:  new THREE.MeshStandardMaterial({color:0x7A4520,roughness:.78,metalness:.06}),
-    light:new THREE.MeshStandardMaterial({color:0xBF834A,roughness:.65,metalness:.08}),
-    honey:new THREE.MeshStandardMaterial({color:0xE8960A,roughness:.22,metalness:.28,emissive:0x7A4000,emissiveIntensity:.25}),
-    frame:new THREE.MeshStandardMaterial({color:0x9B6210,roughness:.72,metalness:.1}),
-    metal:new THREE.MeshStandardMaterial({color:0x9AABB5,roughness:.45,metalness:.7}),
-    grass:new THREE.MeshStandardMaterial({color:0x4A7A2A,roughness:.95,metalness:0}),
-  };
-
-  function box(w,h,d,m,rx=0,ry=0,rz=0){
-    const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d,2,2,2),m);
-    mesh.rotation.set(rx,ry,rz);mesh.receiveShadow=true;mesh.castShadow=true;return mesh;
-  }
-
-  // ── CAPAS DE LA COLMENA ──
-  // Cada entrada: {h, mat, hasFrames, isRoof, isBase, name, labelIds}
-  const layerDefs=[
-    // 0 — Base / piso sanitario
-    {h:.5,  mat:mats.dark,  isBase:true,  name:'base'},
-    // 1 — Cámara de cría inferior
-    {h:.78, mat:mats.mid,   hasFrames:true, name:'camara1'},
-    // 2 — Cámara de cría superior
-    {h:.78, mat:mats.light, hasFrames:true, name:'camara2'},
-    // 3 — Separador de reinas
-    {h:.18, mat:mats.metal, isSep:true,   name:'sep'},
-    // 4 — Alza melaria
-    {h:.9,  mat:mats.light, hasFrames:true, hasHoney:true, name:'alza'},
-    // 5 — Techo / tapa
-    {h:.32, mat:mats.dark,  isRoof:true,  name:'tapa'},
-  ];
-
-  // Destinos de explosión (cuánto sube cada capa al 100% de scroll)
-  // base queda fija, las demás se separan
-  const explodeY=[0, 0.9, 2.0, 3.2, 4.2, 6.5];
-
-  const layers=[];
-  let yo=0;
-  const W=3.0,D=2.1;
-
-  layerDefs.forEach((ld,i)=>{
-    const g=new THREE.Group();
-
-    if(ld.isBase){
-      // Base con patas
-      const body=box(W+.2,ld.h,D+.2,mats.dark);g.add(body);
-      // entrada de abejas
-      const ent=box(.7,.1,.05,mats.dark);ent.position.set(0,0,D/2+.025);g.add(ent);
-      // patas
-      [-1.15,1.15].forEach(x=>[-0.72,0.72].forEach(z=>{
-        const leg=box(.12,1.0,.12,mats.dark);leg.position.set(x,-.75,z);g.add(leg);
-      }));
-      // hierba pequeña
-      for(let b=0;b<5;b++){
-        const blade=box(.04,.12+Math.random()*.1,.04,mats.grass);
-        blade.position.set(-1.1+b*.55,-(.5+.06),D*.5-.05);g.add(blade);
-      }
-    } else if(ld.isRoof){
-      const body=box(W+.3,ld.h,D+.3,ld.mat);g.add(body);
-      // techo inclinado (4 paneles)
-      [[-.72,.22,.55],[.72,.22,.55],[-.72,.22,-.55],[.72,.22,-.55]].forEach(([x,y,z],j)=>{
-        const panel=box(3.5,.13,1.08,mats.mid);panel.rotation.z=j%2===0?Math.PI*.1:-Math.PI*.1;panel.position.set(x,y,z);g.add(panel);
-      });
-      // platina metálica encima
-      const plate=box(3.1,.06,2.0,mats.metal);plate.position.y=.38;g.add(plate);
-    } else if(ld.isSep){
-      // Excluidor de reinas — malla fina
-      const body=box(W+.05,ld.h,D+.05,mats.metal);g.add(body);
-      for(let w=-1.3;w<=1.3;w+=.18){
-        const wire=box(.025,ld.h,D+.05,mats.dark);wire.position.x=w;g.add(wire);
-      }
-    } else {
-      // Cuerpo de alza / cámara
-      const body=box(W,ld.h,D,ld.mat);g.add(body);
-      // esquinas/juntas de madera (fingerjoint visual)
-      [-.48,.48].forEach(x=>{
-        for(let s=-.3;s<=.3;s+=.2){
-          const jt=box(.07,.12,.07,mats.dark);jt.position.set(x*(W/2+.03),s,D/2);g.add(jt);
-          const jt2=box(.07,.12,.07,mats.dark);jt2.position.set(x*(W/2+.03),s,-D/2);g.add(jt2);
-        }
-      });
-      if(ld.hasFrames){
-        // marcos de cuadros
-        const FRAMES=5;
-        for(let f=0;f<FRAMES;f++){
-          const fx=-((FRAMES-1)/2-.f)*((W*.85)/(FRAMES-1));
-          const topBar=box((W*.85)/(FRAMES)*.7,.05,D*.88,mats.frame);topBar.position.set(fx,ld.h*.4,0);g.add(topBar);
-          const botBar=box((W*.85)/(FRAMES)*.7,.05,D*.88,mats.frame);botBar.position.set(fx,-ld.h*.4,0);g.add(botBar);
-          const sideL=box(.03,ld.h*.8,.03,mats.frame);sideL.position.set(fx,0,D*.42);g.add(sideL);
-          const sideR=box(.03,ld.h*.8,.03,mats.frame);sideR.position.set(fx,0,-D*.42);g.add(sideR);
-          if(ld.hasHoney){
-            const hc=box((W*.85)/(FRAMES)*.55,ld.h*.7,D*.72,mats.honey);hc.position.set(fx,0,0);g.add(hc);
-          }
-        }
-      }
-    }
-
-    yo+=ld.h;
-    g.position.y=yo-ld.h/2-.5;
-    g.userData.baseY=g.position.y;
-    g.userData.targetY=g.position.y+explodeY[i];
-    g.userData.currentY=g.position.y;
-    layers.push(g);
-    scene.add(g);
-  });
-
-  // Partículas de polvo / abejas
-  const pg=new THREE.BufferGeometry();
-  const pc=80,pp=new Float32Array(pc*3),ph2=new Float32Array(pc);
-  for(let i=0;i<pc;i++){pp[i*3]=(Math.random()-.5)*16;pp[i*3+1]=(Math.random()-.5)*10;pp[i*3+2]=(Math.random()-.5)*10;ph2[i]=Math.random()*Math.PI*2;}
-  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
-  const bees=new THREE.Points(pg,new THREE.PointsMaterial({color:0xD4860A,size:.06,transparent:true,opacity:.5}));
-  scene.add(bees);
-
-  // ── SCROLL LOGIC ──
-  const wrap=document.getElementById('sticky-wrap');
-  const prog=document.getElementById('prog');
-  const labels={
-    tapa:   {el:document.getElementById('lbl-tapa'),   threshold:.15},
-    panales:{el:document.getElementById('lbl-panales'),threshold:.25},
-    alza:   {el:document.getElementById('lbl-alza'),   threshold:.35},
-    exc:    {el:document.getElementById('lbl-exc'),    threshold:.5},
-    camara: {el:document.getElementById('lbl-camara'), threshold:.6},
-    base:   {el:document.getElementById('lbl-base'),   threshold:.8},
-  };
-
-  function getScrollProgress(){
-    const rect=wrap.getBoundingClientRect();
-    const total=wrap.offsetHeight-window.innerHeight;
-    const scrolled=-rect.top;
-    return Math.max(0,Math.min(1,scrolled/total));
-  }
-
-  let animT=0;
-  const clock=new THREE.Clock();
-  const hiveGroup=new THREE.Group();
-  layers.forEach(l=>{ scene.remove(l); hiveGroup.add(l); });
-  scene.add(hiveGroup);
-
-  function lerp(a,b,t){return a+(b-a)*t;}
-  const LERP_SPEED=6;
-
-  (function animate(){
-    requestAnimationFrame(animate);
-    const dt=Math.min(clock.getDelta(),.05);
-    animT+=dt;
-
-    const p=getScrollProgress();
-
-    // Barra de progreso
-    prog.style.width=(p*100)+'%';
-
-    // Etiquetas
-    Object.entries(labels).forEach(([k,v])=>{
-      const show=p>=v.threshold;
-      v.el.classList.toggle('visible',show);
-    });
-
-    // Rotación sutil de la colmena
-    hiveGroup.rotation.y=Math.sin(animT*.25)*.12;
-
-    // Mover cada capa según el progreso con lerp suave
-    layers.forEach((layer,i)=>{
-      const eased=1-Math.pow(1-p,2.5);
-      const targetY=lerp(layer.userData.baseY,layer.userData.targetY,eased);
-      layer.position.y=lerp(layer.position.y,targetY,LERP_SPEED*dt);
-      // pequeña oscilación una vez separadas
-      if(p>.1){
-        const phase=i*.7;
-        layer.position.y+=Math.sin(animT*.6+phase)*.015*p;
-      }
-    });
-
-    // Partículas
-    const pp2=pg.attributes.position.array;
-    for(let i=0;i<pc;i++){pp2[i*3+1]+=Math.sin(animT+ph2[i])*.003;pp2[i*3]+=Math.cos(animT*.4+ph2[i])*.002;}
-    pg.attributes.position.needsUpdate=true;
-
-    renderer.render(scene,camera);
-  })();
-
-  // ── FORZAR RESIZE cuando el sticky se vuelva visible ──
-  const ro=new ResizeObserver(()=>resize());
-  ro.observe(document.getElementById('sticky-scene'));
-})();
-
-// ════════════════════════════════════════════════════════════════
-//  UI GENERAL
-// ════════════════════════════════════════════════════════════════
-// Nav scroll
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('dark',scrollY>60);});
 
-// Reveal on scroll
-const revEls=document.querySelectorAll('.reveal');
-new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
-},{threshold:.12}).observe
-// usar forEach
-;revEls.forEach(el=>new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.12}).observe(el));
-
-// Botones pedir
-document.querySelectorAll('.btn-buy').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const nombre=btn.closest('.prod-card').querySelector('.prod-name').textContent;
-    window.open(`https://wa.me/527410000000?text=${encodeURIComponent('Hola! Me interesa: '+nombre)}`,'_blank');
-  });
+document.querySelectorAll('.reveal').forEach(el=>{
+  new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:.12}).observe(el);
 });
 
-// Enviar
 document.getElementById('sendBtn').addEventListener('click',()=>{
   const n=document.getElementById('fn').value;
   const t=document.getElementById('ft').value;
   const m=document.getElementById('fm').value;
   if(!n||!m){alert('Por favor completa tu nombre y mensaje.');return;}
-  window.open(`https://wa.me/527410000000?text=${encodeURIComponent('Hola! Soy '+n+' ('+t+').\n'+m)}`,'_blank');
+  window.open('https://wa.me/527410000000?text='+encodeURIComponent('Hola! Soy '+n+' ('+t+').\n'+m),'_blank');
 });
 </script>
 </body>
