@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miel Real — Productos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --miel:#C8790A; --miel-l:#F0A832; --miel-d:#7A4A00;
+  --crema:#FDF6E3; --crema2:#F5EDD5; --madera:#8B5200; --madera-d:#4A2800;
+  --verde:#3A5A2A; --negro:#1A0C02; --txt:#2C1A08; --txt2:#6B4C2A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--txt);overflow-x:hidden;}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(26,12,2,.92);backdrop-filter:blur(14px);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--miel-l);
+  text-decoration:none;display:flex;align-items:center;gap:.5rem;}
+.nav-logo svg{width:28px;height:28px;}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(253,246,227,.65);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--miel-l);}
+.nav-cta{background:var(--miel)!important;color:#fff!important;padding:.5rem 1.1rem;border-radius:.2rem;}
+.nav-cta:hover{background:var(--miel-d)!important;}
+
+/* HEADER */
+#prod-hero{padding:8rem 2rem 4rem;text-align:center;
+  background:linear-gradient(135deg,#1A0C02 0%,#3A1F08 55%,#7A4A00 100%);position:relative;overflow:hidden;}
+.ph-hex{position:absolute;inset:0;opacity:.07;}
+.ph-content{position:relative;z-index:2;max-width:640px;margin:0 auto;}
+.ph-tag{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--miel-l);border:1px solid rgba(240,168,50,.35);padding:.4rem 1.2rem;border-radius:2rem;margin-bottom:1.5rem;}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);color:#FDF6E3;
+  line-height:1.05;margin-bottom:1rem;}
+.ph-title em{color:var(--miel-l);font-style:italic;}
+.ph-sub{font-size:clamp(.9rem,2vw,1.1rem);color:rgba(253,246,227,.65);font-weight:300;
+  max-width:440px;margin:0 auto;line-height:1.6;}
+
+/* FILTROS */
+.filtros{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;padding:2.5rem 2rem 0;}
+.filtro{background:transparent;border:1px solid rgba(212,134,10,.4);color:var(--txt2);
+  padding:.5rem 1.3rem;border-radius:2rem;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;
+  letter-spacing:.05em;cursor:pointer;transition:all .25s;}
+.filtro.active,.filtro:hover{background:var(--miel);color:#fff;border-color:var(--miel);}
+
+/* GRID PRODUCTOS */
+#catalogo{padding:3rem 2rem 6rem;max-width:1150px;margin:0 auto;}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.8rem;}
+.prod-card{background:#fff;border:1px solid rgba(212,134,10,.15);border-radius:.6rem;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;}
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(122,74,0,.15);}
+.prod-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden;}
+.prod-img::before{content:'';position:absolute;inset:0;opacity:.4;}
+.pi-1::before{background:linear-gradient(135deg,#D4860A,#F0A832);}
+.pi-2::before{background:linear-gradient(135deg,#8B5200,#D4860A);}
+.pi-3::before{background:linear-gradient(135deg,#3A5A2A,#6B8B3F);}
+.pi-4::before{background:linear-gradient(135deg,#D4860A,#FDF6E3);}
+.pi-5::before{background:linear-gradient(135deg,#A0652A,#F0A832);}
+.pi-6::before{background:linear-gradient(135deg,#6B3F1C,#C8790A);}
+.prod-badge{position:absolute;top:.8rem;left:.8rem;z-index:2;background:rgba(255,255,255,.92);
+  color:var(--miel-d);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.25rem .7rem;border-radius:2rem;}
+.prod-body{padding:1.4rem;display:flex;flex-direction:column;flex:1;}
+.prod-cat{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--miel);margin-bottom:.4rem;}
+.prod-name{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--txt);margin-bottom:.5rem;}
+.prod-desc{font-size:.85rem;color:var(--txt2);line-height:1.6;margin-bottom:1.2rem;flex:1;}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.prod-price{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--miel-d);}
+.prod-price small{font-size:.75rem;color:var(--txt2);font-family:'DM Sans',sans-serif;}
+.btn-buy{background:var(--miel);color:#fff;border:none;padding:.6rem 1.2rem;border-radius:.3rem;
+  font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
+.btn-buy:hover{background:var(--miel-d);}
+.btn-buy svg{width:15px;height:15px;}
+
+/* CTA FINAL */
+#cta-final{background:var(--madera);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+#cta-final::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(240,168,50,.15) 0%,transparent 60%);}
+.cf-inner{max-width:600px;margin:0 auto;position:relative;z-index:1;}
+.cf-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--crema);margin-bottom:1rem;}
+.cf-inner h2 em{color:var(--miel-l);font-style:italic;}
+.cf-inner p{color:rgba(253,246,227,.65);font-size:1rem;line-height:1.7;margin-bottom:2rem;}
+.btn-wa{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:#fff;
+  font-weight:600;font-size:.9rem;letter-spacing:.04em;text-decoration:none;padding:.95rem 2.2rem;
+  border-radius:.3rem;transition:transform .2s,background .2s;}
+.btn-wa:hover{transform:translateY(-2px);background:#1da851;}
+.btn-wa svg{width:20px;height:20px;}
+
+/* FOOTER */
+footer{background:var(--negro);padding:2.5rem 2rem;text-align:center;border-top:1px solid rgba(212,134,10,.12);}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--miel-l);margin-bottom:.5rem;}
+.foot-links{display:flex;gap:1.5rem;justify-content:center;margin:1rem 0;flex-wrap:wrap;}
+.foot-links a{font-size:.78rem;color:rgba(253,246,227,.5);text-decoration:none;transition:color .2s;}
+.foot-links a:hover{color:var(--miel-l);}
+.foot-sub{font-size:.72rem;color:rgba(253,246,227,.28);letter-spacing:.08em;}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){.nav-links{gap:1rem;}.nav-links li:not(:last-child){display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="none" stroke="#F0A832" stroke-width="1.5"/>
+      <polygon points="14,7 21,11 21,19 14,23 7,19 7,11" fill="rgba(240,168,50,0.2)" stroke="#F0A832" stroke-width="1"/>
+    </svg>
+    Miel Real
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#nosotros">Quiénes somos</a></li>
+    <li><a href="index.html#info">Información</a></li>
+    <li><a href="index.html#ubicacion">Ubicación</a></li>
+    <li><a href="index.html#contacto">Contacto</a></li>
+    <li><a href="index.html" class="nav-cta">Inicio</a></li>
+  </ul>
+</nav>
+
+<!-- HERO PRODUCTOS -->
+<section id="prod-hero">
+  <svg class="ph-hex" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="ph" x="0" y="0" width="24" height="21" patternUnits="userSpaceOnUse">
+      <polygon points="12,1 22,6 22,16 12,21 2,16 2,6" fill="none" stroke="#F0A832" stroke-width="1"/>
+    </pattern></defs>
+    <rect width="200" height="200" fill="url(#ph)"/>
+  </svg>
+  <div class="ph-content">
+    <div class="ph-tag">🍯 Catálogo</div>
+    <h1 class="ph-title">Nuestros <em>productos</em></h1>
+    <p class="ph-sub">Miel pura, panal, propóleo y más. Todo natural, cosechado con respeto a nuestras abejas.</p>
+  </div>
+</section>
+
+<!-- FILTROS -->
+<div class="filtros">
+  <button class="filtro active" data-cat="todos">Todos</button>
+  <button class="filtro" data-cat="miel">Mieles</button>
+  <button class="filtro" data-cat="panal">Panal y cera</button>
+  <button class="filtro" data-cat="salud">Salud</button>
+</div>
+
+<!-- CATALOGO -->
+<section id="catalogo">
+  <div class="prod-grid" id="grid">
+
+    <div class="prod-card reveal" data-cat="miel">
+      <div class="prod-img pi-1"><span class="prod-badge">Más vendido</span>🍯</div>
+      <div class="prod-body">
+        <div class="prod-cat">Miel pura</div>
+        <h3 class="prod-name">Miel de Abeja</h3>
+        <p class="prod-desc">Cosechada directamente del panal. Dorada, espesa y llena de nutrientes naturales. Sin mezclas.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$85 <small>/ 500g</small></span>
+          <button class="btn-buy" data-prod="Miel de Abeja 500g">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="miel">
+      <div class="prod-img pi-5">🍯</div>
+      <div class="prod-body">
+        <div class="prod-cat">Miel pura</div>
+        <h3 class="prod-name">Miel Multifloral</h3>
+        <p class="prod-desc">Recolectada de diversas flores silvestres. Sabor complejo y aromático, ideal para el día a día.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$150 <small>/ 1kg</small></span>
+          <button class="btn-buy" data-prod="Miel Multifloral 1kg">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="panal">
+      <div class="prod-img pi-2">🧇</div>
+      <div class="prod-body">
+        <div class="prod-cat">Panal y cera</div>
+        <h3 class="prod-name">Panal en Cera</h3>
+        <p class="prod-desc">Panal completo con cera natural de abeja. La forma más pura de disfrutar la miel.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$120 <small>/ pieza</small></span>
+          <button class="btn-buy" data-prod="Panal en Cera">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="panal">
+      <div class="prod-img pi-6">🕯️</div>
+      <div class="prod-body">
+        <div class="prod-cat">Panal y cera</div>
+        <h3 class="prod-name">Cera de Abeja</h3>
+        <p class="prod-desc">Cera 100% pura para velas, cosméticos artesanales o uso doméstico. Natural y aromática.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$70 <small>/ 250g</small></span>
+          <button class="btn-buy" data-prod="Cera de Abeja 250g">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="salud">
+      <div class="prod-img pi-3">🌿</div>
+      <div class="prod-body">
+        <div class="prod-cat">Salud</div>
+        <h3 class="prod-name">Propóleo Natural</h3>
+        <p class="prod-desc">Extracto puro reconocido por sus propiedades antibacterianas y su poder inmunológico.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$95 <small>/ 30ml</small></span>
+          <button class="btn-buy" data-prod="Propóleo Natural 30ml">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal" data-cat="salud">
+      <div class="prod-img pi-4"><span class="prod-badge">Premium</span>✨</div>
+      <div class="prod-body">
+        <div class="prod-cat">Salud</div>
+        <h3 class="prod-name">Jalea Real</h3>
+        <p class="prod-desc">El superalimento de las abejas. Recolectada con cuidado para conservar todas sus propiedades.</p>
+        <div class="prod-foot">
+          <span class="prod-price">$180 <small>/ 20g</small></span>
+          <button class="btn-buy" data-prod="Jalea Real 20g">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cf-inner">
+    <h2>¿Pedido al <em>mayoreo</em>?</h2>
+    <p>Manejamos precios especiales para tiendas, restaurantes y revendedores. Escríbenos por WhatsApp y con gusto te cotizamos.</p>
+    <a href="https://wa.me/527410000000?text=Hola!%20Me%20interesa%20comprar%20al%20mayoreo" target="_blank" class="btn-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/></svg>
+      Cotizar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">🐝 Miel Real</div>
+  <div class="foot-links">
+    <a href="index.html">Inicio</a>
+    <a href="index.html#nosotros">Quiénes somos</a>
+    <a href="index.html#ubicacion">Ubicación</a>
+    <a href="index.html#contacto">Contacto</a>
+  </div>
+  <div class="foot-sub">© 2025 · Hecho con amor y cera de abeja · Guerrero, México</div>
+</footer>
+
+<script>
+const WHATSAPP='527410000000';
+
+// Filtros
+document.querySelectorAll('.filtro').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filtro').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat=btn.dataset.cat;
+    document.querySelectorAll('.prod-card').forEach(card=>{
+      const show=cat==='todos'||card.dataset.cat===cat;
+      card.style.display=show?'flex':'none';
+    });
+  });
+});
+
+// Pedir por WhatsApp
+document.querySelectorAll('.btn-buy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const prod=btn.dataset.prod;
+    window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola! Me interesa pedir: '+prod),'_blank');
+  });
+});
+
+// Reveal
+document.querySelectorAll('.reveal').forEach(el=>{
+  new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:.1}).observe(el);
+});
+</script>
+</body>
+</html>
